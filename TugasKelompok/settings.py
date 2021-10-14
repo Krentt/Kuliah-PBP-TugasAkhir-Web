@@ -43,6 +43,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "home",
+    "login_page",
+    "home_page",
+    "product_list_page",
+    "shopping_cart_page",
+    "checkout_page",
+    "customize_masker_page",
+    "wishlist_page",
 ]
 
 MIDDLEWARE = [
