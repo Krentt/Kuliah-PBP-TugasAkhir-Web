@@ -20,11 +20,11 @@ Kami ingin membuat bisnis kecil-kecilan di masa pandemi ini. Bisnis yang profita
 - Shopping cart page
 - Checkout page
 - Customize masker page
-- Database page
+- Wishlist page
 
 # Persona
 - Guest -> bisa mengakses home page, product list page, shopping cart page, dan contact us
 - Registered user -> bisa mengakses checkout page dan customize masker page
-- Admin -> bisa mengkases database page
+- Admin -> update product list page
 
 # Link herokuapp: https://pbp-c07.herokuapp.com/
