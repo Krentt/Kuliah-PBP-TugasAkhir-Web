@@ -1,0 +1,42 @@
+<style>
+    #home_btn_navbar:hover{
+        background-color: blue;
+    }
+    .navbar {
+        padding: 0 1rem;
+    }
+    .navbar .nav-item{padding:1rem 1rem}
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="home_navbar">
+    <div class="container">
+      <a class="navbar-brand" href="#"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item" id="home_btn_navbar">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Products</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#">Account Info</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+            {% if not user.is_authenticated %}
+            <a type="button" class="btn btn-primary" href="../login-page/login">Login</a>
+            {% else %}
+            <span class="navbar-text" style="padding-right: 10px;">Welcome, user {{ user.username }}!</span>
+            <a type="button" class="btn btn-primary" href="../login-page/logout">Logout</a>
+        {% endif %}
+        </form>
+      </div>
+    </div>
+</nav>
+
