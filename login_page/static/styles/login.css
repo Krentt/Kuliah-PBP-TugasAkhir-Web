@@ -1,0 +1,50 @@
+body {
+    background-color: rgba(22, 24, 24, 0.952);
+}
+
+h2 {
+    color: #fff;
+    text-align: center;
+}
+
+form {
+    width: 800px;
+    height: 400px;
+    background-color: rgb(32, 32, 32);
+    border: 0.5px solid black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.field-wrapper {
+    max-width: 70%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.field-label {
+    color: #fff;
+}
+
+.star {
+    color: red;
+}
+
+#submit-button {
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+p {
+    color: #fff;
+    text-align: center;
+}
+
+a:visited {
+    color: blue;
+}
