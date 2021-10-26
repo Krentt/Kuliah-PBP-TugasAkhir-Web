@@ -1,9 +1,10 @@
 from django.urls import path
 
-from .views import scp
+from .views import *
 
 app_name = "shopping_cart_page"
 
 urlpatterns = [
-    path("shopping-cart-page/", scp, name="scp"),
+    path("cart/", cart, name="cart"),
+    path('update_item/', updateItem, name="update_item"),
 ]
