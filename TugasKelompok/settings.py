@@ -149,6 +149,7 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "shopping_cart_page/static"),
     os.path.join(BASE_DIR, 'login_page/static'),
+    os.path.join(BASE_DIR, "product_list_page/static"),
 ]
 
 # Default primary key field type
