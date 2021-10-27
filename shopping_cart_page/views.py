@@ -6,22 +6,23 @@ from product_list_page.models import *
 from .forms import NoteForm
 
 def cart(request):
-	if request.user.is_authenticated:
-		user = request.userform.user
-		order, created = Order.objects.get_or_create(user=user, complete=False)
-		items = order.orderitem_set.all()
-		cartItems = order.get_items_total
-		form = NoteForm(request.POST or None)
-		if request.method == 'POST':
-			order.note = request.POST['note']
-			order.save()
-	else:
-		items = []
-		order = {'get_price_total':0, 'get_items_total':0}
-		cartItems = order['get_items_total']
-		form = NoteForm()
+	context = {}
+	# if request.user.is_authenticated:
+	# 	user = request.user
+	# 	order, created = Order.objects.get_or_create(user=user, complete=False)
+	# 	items = order.orderitem_set.all()
+	# 	cartItems = order.get_items_total
+	# 	form = NoteForm(request.POST or None)
+	# 	if request.method == 'POST':
+	# 		order.note = request.POST['note']
+	# 		order.save()
+	# else:
+	# 	items = []
+	# 	order = {'get_price_total':0, 'get_items_total':0}
+	# 	cartItems = order['get_items_total']
+	# 	form = NoteForm()
 
-	context = {'items':items, 'order':order, 'cartItems':cartItems, 'form':form}
+	# context = {'items':items, 'order':order, 'cartItems':cartItems, 'form':form}
 	return render(request, "shopping_cart_page.html", context)
 
 def updateItem(request):
