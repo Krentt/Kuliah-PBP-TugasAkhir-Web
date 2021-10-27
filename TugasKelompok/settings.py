@@ -18,11 +18,11 @@ import os
 from django.contrib.messages import constants as messages
 
 MESSAGE_TAGS = {
-    messages.DEBUG : 'alert-secondary',
-    messages.INFO: 'alert-info',
-    messages.SUCCESS: 'alert-success',
-    messages.WARNING: 'alert-warning',
-    messages.ERROR: 'alert-danger'
+    messages.DEBUG: "alert-secondary",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "alert-success",
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "alert-danger",
 }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -148,8 +148,9 @@ STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "shopping_cart_page/static"),
-    os.path.join(BASE_DIR, 'login_page/static'),
+    os.path.join(BASE_DIR, "login_page/static"),
     os.path.join(BASE_DIR, "product_list_page/static"),
+    os.path.join(BASE_DIR, "wishlist_page/static"),
 ]
 
 # Default primary key field type
