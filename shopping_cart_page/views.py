@@ -7,7 +7,7 @@ from .forms import NoteForm
 
 def cart(request):
 	if request.user.is_authenticated:
-		user = request.user.user
+		user = request.userform.user
 		order, created = Order.objects.get_or_create(user=user, complete=False)
 		items = order.orderitem_set.all()
 		cartItems = order.get_items_total
