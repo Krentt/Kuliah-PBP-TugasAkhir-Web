@@ -4,5 +4,5 @@ from .views import plp
 app_name = "product_list_page"
 
 urlpatterns = [
-    path("product-list-page/", plp, name="plp"),
+    path("product-list-page/", plp, name="product_list_page"),
 ]
