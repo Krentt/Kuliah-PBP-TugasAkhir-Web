@@ -6,7 +6,13 @@
         padding: 0 1rem;
     }
     .navbar .nav-item{padding:1rem 1rem}
+    #cart-icon{
+      width:25px;
+      display: inline-block;
+      margin-left: 15px;
+    }
 </style>
+{% load static %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="home_navbar">
     <div class="container">
       <a class="navbar-brand" href="#"></a>
@@ -39,6 +45,9 @@
             <a type="button" class="btn btn-primary" href="../logout">Logout</a>
         {% endif %}
         </form>
+        <a href="/cart/">
+           <img  id="cart-icon" src="{% static 'images/cart.png' %}">
+        </a>
       </div>
     </div>
 </nav>
