@@ -14,6 +14,7 @@ def checkout_form(request):
             return HttpResponseRedirect('checkout-2')  # Redirect kalau sudah selesai
 
     else:
+        # Delete semua object
         Checkout.objects.all().delete()
         form = CheckoutForm() # Buat form kosong
 
@@ -28,6 +29,7 @@ def checkout2_form(request):
             return HttpResponseRedirect('checkout-3')  # Redirect kalau sudah selesai
 
     else:
+        # Delete semua object
         Pengiriman.objects.all().delete()
         form = PengirimanForm() # Buat form kosong
 
@@ -42,18 +44,19 @@ def checkout3_form(request):
             return HttpResponseRedirect('checkout-4')  # Redirect kalau sudah selesai
 
     else:
+        # Delete semua object
         Pembayaran.objects.all().delete()
         form = PembayaranForm() # Buat form kosong
 
     return render(request, 'checkout3_layout.html', {'form':form})
 
 def checkout4(request):
-    checkout = Checkout.objects.all()  
-    pengiriman = Pengiriman.objects.all()
-    pembayaran = Pembayaran.objects.all()
-    response = {'checkout': checkout,
-                'pengiriman': pengiriman,
-                'pembayaran': pembayaran}
-    return render(request, 'checkout4.html', response)
+    checkouts = Checkout.objects.all()  
+    pengirimans = Pengiriman.objects.all()
+    pembayarans = Pembayaran.objects.all()
+    response = {'checkouts': checkouts,
+                'pengirimans': pengirimans,
+                'pembayarans': pembayarans}
+    return render(request, 'checkout4_layout.html', response)
 
 

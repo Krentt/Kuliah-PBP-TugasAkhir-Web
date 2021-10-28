@@ -30,11 +30,11 @@
                 width: 100%;
                 padding: 20px;
                 border-radius: 10px;
-                font-family: Montserrat; 
+                font-family: Montserrat;
             }
             
             /* Box Input */
-            input {
+            input, select {
                 margin-bottom: 10px;
                 border: 1px solid rgb(194, 191, 191); 
                 font-family: Montserrat;
@@ -52,26 +52,16 @@
     <form action="" method="POST">
         {% csrf_token %}
         <div class = tengah>
-            <label>STEP 1: DETAIL PEMBAYARAN</label>
+            <label>STEP 2: METODE PENGIRIMAN</label>
             <div class="item">
-                <label for="name">Nama<span></span></label>
+                <label for="durasi">Durasi<span></span></label>
                 <br>
-                {{form.name}}
+                {{form.durasi}}
             </div>
             <div class="item">
-                <label for="email">Email<span></span></label>
+                <label for="kurir">Kurir<span></span></label>
                 <br>
-                {{form.email}}
-            </div>
-            <div class="item">
-                <label for="telp">Nomor Telepon<span></span></label>
-                <br>
-                {{form.telp}}
-            </div>
-            <div class="item">
-                <label for="alamat">Alamat Pengiriman<span></span></label>
-                <br>
-                {{form.alamat}}
+                {{form.kurir}}
             </div>
             <input type="submit" value="Next">
         </div>
