@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import plp
+from .views import *
 
 app_name = "product_list_page"
 
 urlpatterns = [
-    path("product-list-page/", plp, name="product_list_page"),
+    path("product_list_page/", plp, name="product_list_page"),
+    path("product_form/", add_mask, name="product_form"),
 ]
