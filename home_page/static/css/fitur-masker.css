@@ -1,0 +1,114 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: white;
+}
+
+#fitur-container {
+    display: flex;
+    flex-direction: column;
+}
+@media only screen and (min-width: 800px) {
+    #fitur-container {
+        flex-direction: row;
+    }
+    #fitur-container > .card {
+        width: 34%;
+    }
+}
+#fitur-container > .card {
+    margin: 16px 16px 16px 10px;
+    border-radius: 20px;
+    background-color: rgb(32, 32, 32);
+
+}
+#fitur-container > .card > .card-body > h1 {
+    font-size: 30px;
+    text-align: center;
+    color: white;
+}
+#fitur-container > .card > .card-body > p {
+    font-size: 16px;
+    text-align: center;
+    color: white;
+    margin-top: 5rem;
+}
+
+
+#product-summary-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    right: 0.5%;
+    padding: 0;
+    overflow: hidden; 
+    top:50px;
+}
+#product-summary-container > .cropper > .card {
+    border-radius: 0;      
+    width: 7rem;
+    height: 12rem;
+    margin: 2px 2px 2px 2px;
+    background-color: rgb(248, 248, 248);
+}
+#product-summary-container > .cropper > .card > h1 {
+    position: absolute;
+    left: 0;
+    top:55%;
+    font-size: 16px;
+    color: black;
+    padding-left: 2px;
+}
+#product-summary-container > .cropper > .card > p {
+    font-size: 16px;
+    right: 0;
+    position: absolute;
+    bottom: 2%;
+    font-weight: bold;
+    color: black;
+    padding-right: 5px;
+}
+#product-summary-container > .cropper > .card > img {
+    width: auto;
+    height: 6rem;
+}
+#product-summary-container > .cropper {
+    flex: 0 0 7rem;
+    position: relative;
+}
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    width: auto;
+    padding: 1%;
+    bottom: 12%;
+    max-width: 40px;
+    max-height: 60px;
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 3px;
+    user-select: none;
+    -webkit-user-select: none;
+    background-color: rgb(134, 131, 131);
+}
+/* Position the "next button" to the right */
+.next {
+    right: 2%;
+    border-radius: 3px 0 0 3px;
+}
+.prev {
+    border-radius: 3px 0 0 3px;
+}
+
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+background-color: rgba(0, 0, 0, 0.8);
+
+}
