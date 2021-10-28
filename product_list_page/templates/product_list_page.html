@@ -15,73 +15,36 @@
     <div class="container">
       <br>
       <h3>Product List</h3>
-      <div class="row">
-        <div class="col-lg-4">
-          <img class="thumbnail" src="{% static 'Downloads/N95_mask.png' %}">
-          <div class="box-element product">
-            <h6><strong>N95 Mask</strong></h6>
-            <div class="height-100 container d-flex justify-content-center align-items-center">
-              <div class="card p-3">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="ratings"> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star"></i> </div>
-                  <h5 class="review-count">12 Reviews</h5>
+      {% if product %} 
+        {% for ProdukMasker in product %}
+          <div class="row">
+            <div class="col-lg-4">
+              <img class="thumbnail" src="{% static 'Downloads/placeholder.png' %}">
+              <div class="box-element product">
+                <h6><strong>{{ ProdukMasker.nama }}</strong></h6>
+                <div class="height-100 container d-flex justify-content-center align-items-center">
+                  <div class="card p-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h6>{{ ProdukMasker.deskripsi }}</h6>
+                      <h6>{{ ProdukMasker.stok }}</h6>
+                      <h6>{{ ProdukMasker.harga }}</h6>
+                      <h6>{{ ProdukMasker.rating }}</h6>
+                    </div>
+                  </div>  
                 </div>
-              </div>  
-            </div>
-            <hr>
-        
-            <button class="btn btn-outline-secondary add-btn">Add to Cart</button>
-            <a class="btn btn-outline-success" href="#">View</a>
-            <h4 style="display: inline-block; float: right"><strong>$5</strong></h4>
-        
-          </div>
-        </div>
-
-        <div class="col-lg-4">
-          <img class="thumbnail" src="{% static 'Downloads/reusable_mask.png' %}">
-          <div class="box-element product">
-            <h6><strong>Reusable Mask</strong></h6>
-            <div class="height-100 container d-flex justify-content-center align-items-center">
-              <div class="card p-3">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="ratings"> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
-                  <h5 class="review-count">10 Reviews</h5>
-                </div>
-              </div>  
-            </div>
-            <hr>
-        
-            <button class="btn btn-outline-secondary add-btn">Add to Cart</button>
-            <a class="btn btn-outline-success" href="#">View</a>
-            <h4 style="display: inline-block; float: right"><strong>$5</strong></h4>
-        
-          </div>
-        </div>
-
-        <div class="col-lg-4">
-          <img class="thumbnail" src="{% static 'Downloads/surgical_mask.png' %}">
-          <div class="box-element product">
-              <h6><strong>Surgical Mask</strong></h6>
-              <div class="height-100 container d-flex justify-content-center align-items-center">
-                <div class="card p-3">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="ratings"> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star"></i> </div>
-                    <h5 class="review-count">14 Reviews</h5>
-                  </div>
-                </div>  
+                <hr>
+          
+                <button class="btn btn-outline-secondary add-btn">Add to Cart</button>
+                <a class="btn btn-outline-success" href="#">View</a>
+                <h4 style="display: inline-block; float: right"><strong>$5</strong></h4>
+          
               </div>
-              <hr>
-        
-              <button class="btn btn-outline-secondary add-btn">Add to Cart</button>
-              <a class="btn btn-outline-success" href="#">View</a>
-              <h4 style="display: inline-block; float: right"><strong>$5</strong></h4>
-        
+            </div>
           </div>
-        </div>
-      </div>
+        {% endfor %}
+      {% endif %}
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		  <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-		<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
   </body>
 </html>
