@@ -138,6 +138,7 @@ STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "shopping_cart_page/static"),
+    os.path.join(BASE_DIR, "cuztomize_masker_pager/static"),
 ]
 
 # Default primary key field type
@@ -147,3 +148,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, "static")
+MEDIA__URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
