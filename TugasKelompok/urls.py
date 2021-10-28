@@ -15,15 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from wishlist_page import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("testing/", include("home.urls")),
     path("", include("login_page.urls")),
     path("", include("home_page.urls")),
     path("", include("shopping_cart_page.urls")),
-    path("", include("cuztomize_masker_page.urls")),
     path("", include("product_list_page.urls")),
     path("", include("wishlist_page.urls")),
-    path("", include("checkout_page.urls"))
+    path("", include("checkout_page.urls")),
+    path("", include("cuztomize_masker_page.urls")),
 ]

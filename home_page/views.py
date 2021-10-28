@@ -5,6 +5,7 @@ from home_page.models import SubscribedEmail
 from django.core import serializers
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from product_list_page.models import ProdukMasker
 
 # Create your views here.
 def index(request) :
@@ -52,6 +53,6 @@ def get_all_mail(request):
     data = serializers.serialize('json', emails)
     return HttpResponse(json.dumps(json.loads(data), indent=2), content_type='application/json')
 
-# @receiver(post_save, sender=Produk)
-# def mahasiswa_added(sender, **kwargs) :
-#     print(kwargs["instance"].name)
+@receiver(post_save, sender=ProdukMasker)
+def produk_masker_handler(sender, **kwargs) :
+    print(kwargs["instance"].nama)
