@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+  <head>
+    <!-- Ambil font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <meta charset = "UTF-8" />
+    <!-- Title tab -->
+    <title>Checkout</title> 
+  </head>
+  <style>
+    /* Nempelin ke samping layar */
+    html, body {
+    min-height: 100%;
+    }
+    body, div, form, input, select, textarea, label { 
+    padding: 0;
+    margin: 100;
+    outline: none;
+    font-family: Roboto;
+    font-size: 14px;
+    color: rgb(0, 0, 0);
+    line-height: 22px;
+    }
+    
+
+    /* Kotak yang nyimpen form */
+    form {
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgb(170, 165, 165);
+    box-shadow: 0 0 25px  #e600bf; 
+    }
+    
+    /* Box Input */
+    input {
+    margin-bottom: 10px;
+    border: 1px solid rgb(194, 191, 191); 
+    font-family: arial, sans-serif;
+    background: rgb(170, 165, 165);
+    border-radius: 6px; /*Curve border input*/
+    }
+    /* Handle new line tiap box input */
+    input {
+    width: calc(100% - 10px); 
+    padding: 5px;
+    }
+    
+  </style>
+  <!-- padding buat handle bates kiri kanan, set background image dan posisinya, handle posisi body supaya di tengah -->
+  <body style = "padding-left:8rem ; padding-right:8rem ; background-image:url('https://pbs.twimg.com/media/EORTB6mW4AAMqSY?format=png&name=large') ; background-size:cover ; height: 100vh ; display: flex ; flex-direction: column ; justify-content: center;">
+    <form action="" method="POST">
+      {% csrf_token %}
+      <div class="item">
+        <label for="name">Name<span></span></label>
+        <input id="name" type="text" name="name" required/>
+      </div>
+      <div class="item">
+        <label for="npm">NPM<span></span></label>
+        <input id="npm" type="text" name="npm" required/>
+      </div>
+      <div class="item">
+        <label for="DOB">Date of Birth<span></span></label>
+        <input id="DOB" type="date" name="DOB" required/>
+      </div>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>
