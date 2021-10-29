@@ -32,9 +32,11 @@ def checkout2_form(request):
     else:
         # Delete semua object
         Pengiriman.objects.all().delete()
+        checkouts = Checkout.objects.all()
         form = PengirimanForm() # Buat form kosong
+        response = {'checkouts':checkouts, 'form':form}
 
-    return render(request, 'checkout2_layout.html', {'form':form})
+    return render(request, 'checkout2_layout.html', response)
 
 # Method Metode Pembayaran
 def checkout3_form(request):
@@ -47,9 +49,12 @@ def checkout3_form(request):
     else:
         # Delete semua object
         Pembayaran.objects.all().delete()
+        checkouts = Checkout.objects.all()
+        pengirimans = Pengiriman.objects.all()
         form = PembayaranForm() # Buat form kosong
+        response = {'checkouts':checkouts, 'pengirimans':pengirimans, 'form':form,}
 
-    return render(request, 'checkout3_layout.html', {'form':form})
+    return render(request, 'checkout3_layout.html', response)
 
 def checkout4(request):
     checkouts = Checkout.objects.all()  
@@ -58,10 +63,18 @@ def checkout4(request):
     response = {'checkouts': checkouts,
                 'pengirimans': pengirimans,
                 'pembayarans': pembayarans}
+
+    return render(request, 'checkout4_layout.html', response)
+
+def checkout_complete(request):
+    Checkout.objects.all().delete()
+    Pengiriman.objects.all().delete()
+    Pembayaran.objects.all().delete()
     user = request.user
     order, created = Order.objects.get_or_create(user=user, complete=False)
     order.complete = True
     order.save()
-    return render(request, 'checkout4_layout.html', response)
+
+    return render(request, 'checkout_complete.html')
 
 
