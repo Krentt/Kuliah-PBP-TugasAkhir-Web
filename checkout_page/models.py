@@ -11,8 +11,8 @@ class Checkout(models.Model):
 class Pengiriman(models.Model):
     # Referensi: Tokopedia
     DURASI = (
-        ('Next Day (1 hari)', 'Next Day (1 hari) *Rp 10.000'),
-        ('Reguler (2-4 hari)', 'Reguler (2-4 hari) *Rp 15.000'),
+        ('Next Day (1 hari) *Rp 10.000', 'Next Day (1 hari) *Rp 10.000'),
+        ('Reguler (2-4 hari) *Rp 15.000', 'Reguler (2-4 hari) *Rp 15.000'),
     )
     KURIR = (
         ('AnterAja', 'AnterAja'),

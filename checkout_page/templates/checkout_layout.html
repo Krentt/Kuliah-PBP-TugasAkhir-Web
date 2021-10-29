@@ -16,8 +16,8 @@
 
             .tengah {
                 background-size:cover; 
-                padding-left:16rem; 
-                padding-right:16rem; 
+                padding-left:24rem; 
+                padding-right:24rem;
                 height : 100vh; 
                 background-color: rgb(20,20,20);
                 display: flex; 
@@ -30,14 +30,14 @@
                 width: 100%;
                 padding: 20px;
                 border-radius: 10px;
-                font-family: Alice; 
+                font-family: 'Alice', serif; 
             }
             
             /* Box Input */
             input {
                 margin-bottom: 10px;
                 border: 1px solid rgb(194, 191, 191); 
-                font-family: Alice;
+                font-family: 'Alice', serif;
                 background: #bdbbbb;
                 border-radius: 6px; /*Curve border input*/
                 width: calc(100% - 10px); /* Ngatur text box dibawah label */
@@ -47,6 +47,35 @@
             .item {
                 color:rgb(255, 255, 255);
             }
+
+            #STEP1, #STEP2, #STEP3, #STEP4, #STEP1FORM {
+                background-color: rgb(50, 55, 62);
+                padding:1rem;
+                margin-bottom:1rem;
+                border-style: solid;
+                border-width: 1px;
+                border-color: black;
+            }
+            
+            #STEP1 {
+                margin-bottom:0rem;
+                border-bottom-style: none;
+            }
+            #STEP4 {
+                margin-bottom:0rem;
+            }
+
+            #STEPS {
+                background-color: rgb(32, 32, 32);
+                padding-left: 1rem;
+                padding-top: 1rem;
+                padding-right: 1rem;
+                padding-bottom: 1rem;
+                border-style: solid;
+                border-width: 2px;
+                border-color: black;
+            }
+
         </style>
 
     </head>
@@ -56,31 +85,47 @@
     <form action="" method="POST">
         {% csrf_token %}
         <div class = tengah>
-            <label class = "item">STEP 1: DETAIL PEMBAYARAN</label>
-            <div class="item">
-                <label for="name">Nama<span></span></label>
-                <br>
-                {{form.name}}
+            <label class="item">&nbsp;&nbsp;&nbsp;Secure Checkout</label>
+            <div id="STEPS">
+                <div id="STEP1">
+                        <label class = "item">STEP 1: DETAIL PEMBAYARAN</label>
+                </div>
+                <div id="STEP1FORM">
+                    <div class="item">
+                        <label for="name">Nama Lengkap<span></span></label>
+                        <br>
+                        {{form.name}}
+                    </div>
+                    <div class="item">
+                        <label for="email">Email<span></span></label>
+                        <br>
+                        {{form.email}}
+                    </div>
+                    <div class="item">
+                        <label for="telp">Nomor Telepon<span></span></label>
+                        <br>
+                        {{form.telp}}
+                    </div>
+                    <div class="item">
+                        <label for="alamat">Alamat Pengiriman<span></span></label>
+                        <br>
+                        {{form.alamat}}
+                    </div>
+                    <input type="submit" value="Next">
+                </div>
+                
+                <div id="STEP2">
+                    <label class = "item">STEP 2: METODE PENGIRIMAN</label>
+                </div>
+                
+                <div id="STEP3">
+                    <label class = "item">STEP 3: METODE PEMBAYARAN</label>
+                </div>
+                
+                <div id="STEP4">
+                    <label class = "item">STEP 4: KONFIRMASI ORDER</label>
+                </div>
             </div>
-            <div class="item">
-                <label for="email">Email<span></span></label>
-                <br>
-                {{form.email}}
-            </div>
-            <div class="item">
-                <label for="telp">Nomor Telepon<span></span></label>
-                <br>
-                {{form.telp}}
-            </div>
-            <div class="item">
-                <label for="alamat">Alamat Pengiriman<span></span></label>
-                <br>
-                {{form.alamat}}
-            </div>
-            <input type="submit" value="Next">
-            <label class = "item">STEP 2: METODE PENGIRIMAN</label>
-            <label class = "item">STEP 3: METODE PEMBAYARAN</label>
-            <label class = "item">STEP 4: KONFIRMASI ORDER</label>
         </div>
     </form>
     </body>
