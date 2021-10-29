@@ -18,7 +18,7 @@
                 background-size:cover; 
                 padding-left:24rem; 
                 padding-right:24rem;
-                height : 100vh; 
+                height : 110vh; 
                 background-color: rgb(20,20,20);
                 display: flex; 
                 flex-direction: column; 
@@ -87,7 +87,7 @@
     </head>
 
     <!-- padding buat handle bates kiri kanan, set background image dan posisinya, handle posisi body supaya di tengah -->
-    <body style = "background-color:rgb(16,18,18) ; height: 100vh ; display: flex ; flex-direction: column ; justify-content: center;">
+    <body style = "background-color:rgb(20,20,20) ; height: 110vh ; display: flex ; flex-direction: column ; justify-content: center;">
     <form action="" method="POST">
         {% csrf_token %}
         <div class = tengah>
@@ -128,8 +128,9 @@
                     <label class = "item">STEP 4: KONFIRMASI ORDER</label>
                 </div>
                 <div id="STEP4FORM">
-                    Produk: <br>
-                    Total pembayaran: Harga produk + harga pengiriman <br>
+                    Banyak produk: {{order.get_items_total}} <br>
+                    Harga total: {{order.get_price_total}} <br>
+                    Note: {{order.note}} <br>
                     Jika ingin mengganti detail checkout, tekan tombol Ganti. <br>
                     <button type="button" onclick="location.href='checkout-1'">
                         Ganti

@@ -60,9 +60,12 @@ def checkout4(request):
     checkouts = Checkout.objects.all()  
     pengirimans = Pengiriman.objects.all()
     pembayarans = Pembayaran.objects.all()
+    user = request.user
+    order, created = Order.objects.get_or_create(user=user, complete=False)
     response = {'checkouts': checkouts,
                 'pengirimans': pengirimans,
-                'pembayarans': pembayarans}
+                'pembayarans': pembayarans,
+                'user':user, 'order':order}
 
     return render(request, 'checkout4_layout.html', response)
 
