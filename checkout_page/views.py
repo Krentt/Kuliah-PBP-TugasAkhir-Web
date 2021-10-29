@@ -3,6 +3,7 @@ from django.http.response import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from checkout_page.models import Checkout, Pengiriman, Pembayaran
 from checkout_page.forms import CheckoutForm, PengirimanForm, PembayaranForm
+from shopping_cart_page.models import *
 
 # Create your views here.
 # Method Detail Pembayaran
@@ -57,6 +58,10 @@ def checkout4(request):
     response = {'checkouts': checkouts,
                 'pengirimans': pengirimans,
                 'pembayarans': pembayarans}
+    user = request.user
+    order, created = Order.objects.get_or_create(user=user, complete=False)
+    order.complete = True
+    order.save()
     return render(request, 'checkout4_layout.html', response)
 
 
