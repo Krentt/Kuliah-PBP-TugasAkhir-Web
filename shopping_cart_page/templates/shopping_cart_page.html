@@ -61,20 +61,16 @@
 							<div style="flex:6" class="text-center">No Items</div>
 						</div>
 						{% endfor %}
-
 						<form class="cart-row" method="POST" action="">
-							{% csrf_token %}
-							<div class="col" style="flex:1; padding-right: 0; padding-top: 5px;">
-								<label for="id_subject">Catatan:</label>
-							</div>
+							{%csrf_token%}
 							<div class="col" style="flex:11">
-								<p placeholder='Tuliskan catatan pemesanan disini'>{{ form.note }}</p>
+								<label for="id_subject" style="margin-bottom: 5px;">Catatan:</label>
+								<strong placeholder='Tuliskan catatan pemesanan disini'>{{ form.note }}</strong>
 							</div>
-							<div class="col" style="flex:1">
-								<input class="submit btn btn-success" type="submit" value="Submit"/>
+							<div class="col" style="flex:1; margin-top:auto">
+								<input class="submit btn btn-success" type="submit" value="Submit" style="margin-left:10px"/>
 							</div>
 						</form>
-
 						{% else %}
 						<div class="cart-row">
 							<div style="flex:6" class="text-center bg-danger">Please login or register to view your cart</div>
@@ -100,9 +96,6 @@
 								<th><label>Catatan:</label></th>
 								<th><p>{{ order.note }}</p></th>
 							</tr>
-							{% endif %}
-
-							{% if user.is_authenticated %}
 							<tr>
 								<th colspan="3"><a class="btn btn-success" href="/checkout-1">Checkout</a></th>
 							</tr>
