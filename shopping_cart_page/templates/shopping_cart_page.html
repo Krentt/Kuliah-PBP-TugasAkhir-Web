@@ -17,7 +17,7 @@
             <br>
 			<div class="row">
 				<div class="col-lg-12">
-					<a  class="btn btn-outline-dark" href="">&#x2190; Continue Shopping</a>
+					<a  class="btn btn-outline-dark" href="/product_list_page/">&#x2190; Continue Shopping</a>
 				</div>
 	
 				<div class="col-lg-9"></div>
@@ -100,11 +100,11 @@
 
 							{% if user.is_authenticated %}
 							<tr>
-								<th colspan="3"><a class="btn btn-success checkout" href="">Checkout</a></th>
+								<th colspan="3"><a class="btn btn-success" href="/checkout-1">Checkout</a></th>
 							</tr>
 							{% else %}
 							<tr>
-								<th colspan="3"><a class="btn btn-primary checkout" href="{% url 'login' %}">Login</a></th>
+								<th colspan="3"><a class="btn btn-primary" href="{% url 'login' %}">Login</a></th>
 							</tr>
 							{% endif %}
 						</table>
@@ -136,18 +136,12 @@
 							<div style="flex:1; margin-top: 0.5rem" class="text-center"><p style="margin: auto;">{{custom.color}}</p></div>
 							<div style="flex:1; margin-top: 0.5rem" class="text-center"><p style="margin: auto;">${{custom.price|floatformat:2}}</p></div>
 							<div style="flex:1; margin-top: 0.5rem" class="text-center"><p class="quantity">{{custom.quantity}}</p></div>
-							<div style="flex:1; margin-top: 0.5rem" class="text-center"><p>$0</p></div>
+							<div style="flex:1; margin-top: 0.5rem" class="text-center"><p>${{custom.get_total|floatformat:2}}</p></div>
 						</div>
 						<div class="cart-row">
-							{% if user.is_authenticated %}
 							<tr>
-								<th colspan="3"><a class="btn btn-success checkout" href="{% url 'checkout' %}">Checkout</a></th>
+								<th colspan="3"><a class="btn btn-success checkout" href="/checkout-1">Checkout</a></th>
 							</tr>
-							{% else %}
-							<tr>
-								<th colspan="3"><a class="btn btn-success checkout" href="">Login</a></th>
-							</tr>
-							{% endif %}
 						</div>
 						{% empty %}
 						<div class="cart-row">
