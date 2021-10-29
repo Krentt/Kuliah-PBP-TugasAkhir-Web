@@ -61,16 +61,20 @@
 							<div style="flex:6" class="text-center">No Items</div>
 						</div>
 						{% endfor %}
+
 						<form class="cart-row" method="POST" action="">
-							{%csrf_token%}
-							<div class="col" style="flex:11">
-								<label for="id_subject" style="margin-bottom: 5px;">Catatan:</label>
-								<input type="text", class="form-control", style="flex:8", placeholder="Tuliskan catatan pemesanan disini">
+							{% csrf_token %}
+							<div class="col" style="flex:1; padding-right: 0; padding-top: 5px;">
+								<label for="id_subject">Catatan:</label>
 							</div>
-							<div class="col" style="flex:1; margin-top:auto">
-								<input class="submit btn btn-success" type="submit" value="Submit" style="margin-left:10px"/>
+							<div class="col" style="flex:11">
+								<p placeholder='Tuliskan catatan pemesanan disini'>{{ form.note }}</p>
+							</div>
+							<div class="col" style="flex:1">
+								<input class="submit btn btn-success" type="submit" value="Submit"/>
 							</div>
 						</form>
+
 						{% else %}
 						<div class="cart-row">
 							<div style="flex:6" class="text-center bg-danger">Please login or register to view your cart</div>
