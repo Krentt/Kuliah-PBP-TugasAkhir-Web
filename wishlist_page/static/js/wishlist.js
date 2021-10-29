@@ -24,8 +24,7 @@ $("form#createItem").submit(function() {
         alert("All fields must have a valid value.");
     }
     $('form#createItem').trigger("reset");
-    $('#createItemModal').modal('hide');
-    $(".modal").modal("hide");
+    $("#createItemModal").css("display", "none");
     $(".modal-backdrop").remove();
     return false;
 });
@@ -33,7 +32,7 @@ $("form#createItem").submit(function() {
 function appendToTable(item) {
     $("#wishlistTable > tbody:last-child").append(`
     <tr id="item-${item.id}">
-        <td class="itemCounter itemData" name="counter">${item.id}</td>
+        <td class="itemCounter itemData" name="counter">${item.counter}</td>
         '<td class="itemName itemData" name="name">${item.name}</td>
         '<td class="itemPrice itemData" name="price"><label class="currency">Rp</label><label class="harga">${item.price}</label></td>
         '<td class="itemCount itemData" name="count">${item.count}</td>
@@ -85,8 +84,7 @@ $("form#updateItem").submit(function () {
         alert("UPDATE All fields must have a valid value.");
     }
     $('form#updateItem').trigger("reset");
-    $('#updateItemModal').modal('hide');
-    $(".modal-fade").modal("hide");
+    $("#updateItemModal").css("display", "none");
     $(".modal-backdrop").remove();
     return false;
 });
