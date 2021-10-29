@@ -20,6 +20,7 @@ class Migration(migrations.Migration):
                 ('deskripsi', models.CharField(max_length=255)),
                 ('harga', models.BigIntegerField()),
                 ('stok', models.BigIntegerField()),
+                ('image', models.ImageField(blank=True, null=True, upload_to=''))
             ],
         ),
     ]
