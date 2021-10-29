@@ -90,15 +90,15 @@
 							{% if user.is_authenticated %}
 							<tr>
 								<th><p>Jumlah Item:</p></th>
-								<th><p><strong>0</strong></p></th>
+								<th><p><strong>{{order.get_items_total}}</strong></p></th>
 							</tr>
 							<tr>
 								<th><p>Total Harga:</p></th>
-								<th><p><strong>$0.00</strong></p></th>
+								<th><p><strong>${{order.get_price_total|floatformat:2}}</strong></p></th>
 							</tr>
 							<tr>
 								<th><label>Catatan:</label></th>
-								<th><p>Sebuah Catatan</p></th>
+								<th><p>{{ order.note }}</p></th>
 							</tr>
 							{% endif %}
 
