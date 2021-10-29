@@ -20,8 +20,8 @@ def cart(request):
 			order.save()
 	else:
 		items = []
-		customs = []
-		order = {'get_price_total':0, 'get_items_total':0}
+		customs = {'get_total':0}
+		order = {'get_price_total':0, 'get_items_total':0, 'get_total':0}
 		cartItems = order['get_items_total']
 		form = NoteForm()
 
@@ -33,9 +33,9 @@ def updateItem(request):
 	productId = data['productId']
 	action = data['action']
 	
-	customer = request.user.customer
+	user = request.user
 	product = ProdukMasker.objects.get(id=productId)
-	order, created = Order.objects.get_or_create(customer=customer, complete=False)
+	order, created = Order.objects.get_or_create(user=user, complete=False)
 
 	orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
 
