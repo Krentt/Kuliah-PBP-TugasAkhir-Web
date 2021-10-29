@@ -14,7 +14,7 @@ def plp(request):
 @login_required(login_url="/admin/login/")
 def add_mask(request):
     if request.method == 'POST':
-        form = ProdukMaskerForm(request.POST)
+        form = ProdukMaskerForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/product_list_page/')
