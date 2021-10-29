@@ -10,6 +10,28 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	  <link rel="stylesheet" type="text/css" href="{% static 'css/product_list_page.css' %}">
 	  {% include "home_page/home_navbar.html" %}
+
+    <script type="text/javascript">
+      var user = '{{request.user}}'
+  
+      function getToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          var cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      var csrftoken = getToken('csrftoken');
+    </script>
+    
   </head>
   <body>
     <div class="container">
@@ -19,7 +41,7 @@
         {% for ProdukMasker in product %}
           <div class="row">
             <div class="col-lg-4">
-              <img class="thumbnail" src="{% static 'Downloads/placeholder.png' %}">
+              <img class="thumbnail" src="{{ ProdukMasker.imageURL }}">
               <div class="box-element product">
                 <h6><strong>{{ ProdukMasker.nama }}</strong></h6>
                 <div class="height-100 container d-flex justify-content-center align-items-center">
@@ -34,9 +56,9 @@
                 </div>
                 <hr>
           
-                <button class="btn btn-outline-secondary add-btn">Add to Cart</button>
+                <button data-product={{ProdukMasker.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
                 <a class="btn btn-outline-success" href="#">View</a>
-                <h4 style="display: inline-block; float: right"><strong>$5</strong></h4>
+                <h4 style="display: inline-block; float: right"><strong>${{ ProdukMasker.harga }}</strong></h4>
           
               </div>
             </div>
