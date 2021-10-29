@@ -51,8 +51,7 @@
 							<div style="flex:1 ; margin-top: 1.5rem"><p>${{item.get_total|floatformat:2}}</p></div>
 						</div>
 						<div class="cart-row">
-							<button style="flex:2;float:right; margin:5px;" class="btn btn-outline-secondary" href="">Add Wistlist</button>
-							<button data-product="" data-action="removeAll" style="flex:1;float:right; margin:5px;" class="btn btn-outline-secondary update-cart">Remove</button>
+							<button data-product="" data-action="removeAll" style="flex:1;float:right; margin:5px;" class="btn-outline-danger update-cart d-grid gap-2 col-6 mx-auto">Remove</button>
 						</div>
 						<div class="cart-row">
 						</div>
@@ -68,7 +67,7 @@
 								<strong placeholder='Tuliskan catatan pemesanan disini'>{{ form.note }}</strong>
 							</div>
 							<div class="col" style="flex:1; margin-top:auto">
-								<input class="submit btn btn-success" type="submit" value="Submit" style="margin-left:10px"/>
+								<input class="submit btn btn-outline-success" type="submit" value="Submit" style="margin-left:10px"/>
 							</div>
 						</form>
 						{% else %}
@@ -97,11 +96,11 @@
 								<th><p>{{ order.note }}</p></th>
 							</tr>
 							<tr>
-								<th colspan="3"><a class="btn btn-success" href="/checkout-1">Checkout</a></th>
+								<th colspan="3"><a class="btn btn-success d-grid col-6 mx-auto" href="/checkout-1">Checkout</a></th>
 							</tr>
 							{% else %}
 							<tr>
-								<th colspan="3"><a class="btn btn-primary" href="{% url 'login' %}">Login</a></th>
+								<th colspan="3"><a class="btn btn-primary d-grid col-6 mx-auto" href="{% url 'login' %}">Login</a></th>
 							</tr>
 							{% endif %}
 						</table>
@@ -137,7 +136,7 @@
 						</div>
 						<div class="cart-row">
 							<tr>
-								<th colspan="3"><a class="btn btn-success checkout" href="/checkout-1">Checkout</a></th>
+								<th colspan="3"><a class="btn btn-success d-grid col-6 mx-auto" href="/checkout-1">Checkout</a></th>
 							</tr>
 						</div>
 						{% empty %}
