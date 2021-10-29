@@ -31,7 +31,7 @@
 			}
 			var csrftoken = getToken('csrftoken');
 		  </script>
-		  
+
     </head>
 
 	<body>
@@ -60,20 +60,20 @@
 						{% if user.is_authenticated %}
 						{% for item in items %}
 						<div class="cart-row">
-							<div style="flex:1"><img class="row-image rounded mx-auto d-block" src="{% static 'images/placeholder.png' %}"></div>
+							<div style="flex:1"><img class="row-image rounded mx-auto d-block" src="{{item.product.imageURL}}"></div>
 							<div style="flex:2; margin-top: 1.5rem"><p style="margin: auto;">{{item.product.nama}}</p></div>
 							<div style="flex:1; margin-top: 1.5rem"><p>${{item.product.harga|floatformat:2}}</p></div>
 							<div style="flex:1; margin-top: 1rem">
 								<p class="quantity">{{item.quantity}}</p>
 								<div class="quantity">
-									<img data-product='' data-action="add" class="chg-quantity update-cart" src="{% static 'images/arrow-up.png' %}">
-									<img data-product='' data-action="remove" class="chg-quantity update-cart" src="{% static 'images/arrow-down.png' %}">
+									<img data-product={{item.product.id}} data-action="add" class="chg-quantity update-cart" src="{% static 'images/arrow-up.png' %}">
+									<img data-product={{item.product.id}} data-action="remove" class="chg-quantity update-cart" src="{% static 'images/arrow-down.png' %}">
 								</div>
 							</div>
 							<div style="flex:1 ; margin-top: 1.5rem"><p>${{item.get_total|floatformat:2}}</p></div>
 						</div>
 						<div class="cart-row">
-							<button data-product="" data-action="removeAll" style="flex:1;float:right; margin:5px;" class="btn-outline-danger update-cart d-grid gap-2 col-6 mx-auto">Remove</button>
+							<button data-product={{item.product.id}} data-action="removeAll" style="flex:1;float:right; margin:5px;" class="btn-outline-danger update-cart d-grid gap-2 col-6 mx-auto">Remove</button>
 						</div>
 						<div class="cart-row">
 						</div>
