@@ -12,13 +12,17 @@ class Order(models.Model):
 
     def get_price_total(self):
         orderitems = self.orderitem_set.all()
+        customitems = self.custommask_set.all()
         total = sum([item.get_total() for item in orderitems])
-        return total
+        totalcustom = sum([item.get_total() for item in customitems])
+        return total + totalcustom
 
     def get_items_total(self):
         orderitems = self.orderitem_set.all()
+        customitems = self.custommask_set.all()
         total = sum([item.quantity for item in orderitems])
-        return total
+        totalcustom = sum([item.quantity for item in customitems])
+        return total + totalcustom
 
 class OrderItem(models.Model):
     product = models.ForeignKey(ProdukMasker, on_delete=models.SET_NULL, blank=True, null=True)
