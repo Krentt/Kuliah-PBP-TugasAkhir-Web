@@ -36,7 +36,7 @@ class CustomMask (models.Model):
     model = models.CharField(max_length=8, choices=MODEL_CHOICES, default=None, blank=False)
     color = models.CharField(max_length=8, choices=COLOR_CHOICES, default=None, blank=False)
     style = models.FileField(upload_to='documents/', blank=True, null=True)
-    price = models.FloatField(default=20000)
+    price = models.FloatField(default=15)
     quantity = models.IntegerField(default = 100, null = True, blank=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
     
