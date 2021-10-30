@@ -4,7 +4,7 @@ from .models import ProdukMasker
 class ProdukMaskerForm(forms.ModelForm):
     class Meta:
         model = ProdukMasker
-        fields = ['nama', 'rating', 'deskripsi', 'harga', 'stok', 'image']
+        fields = ['nama', 'rating', 'deskripsi', 'harga', 'stok']
         widgets = {
             'nama' : forms.TextInput(attrs={
                 'class' : 'form-control',
