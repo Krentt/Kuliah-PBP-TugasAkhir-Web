@@ -10,9 +10,10 @@ def cart(request):
 	context = {}
 	if request.user.is_authenticated:
 		user = request.user
+		print(Order.objects.get_or_create(user=user, complete=False))
 		order, created = Order.objects.get_or_create(user=user, complete=False)
 		items = order.orderitem_set.all()
-		customs = CustomMask.objects.all()
+		customs = order.custommask_set.all()
 		cartItems = order.get_items_total
 		form = NoteForm(request.POST or None)
 		if request.method == 'POST':
@@ -20,7 +21,7 @@ def cart(request):
 			order.save()
 	else:
 		items = []
-		customs = {'get_total':0}
+		customs = []
 		order = {'get_price_total':0, 'get_items_total':0, 'get_total':0}
 		cartItems = order['get_items_total']
 		form = NoteForm()
