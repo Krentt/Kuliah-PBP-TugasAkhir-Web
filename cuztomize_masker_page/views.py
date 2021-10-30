@@ -3,16 +3,19 @@ from django.shortcuts import render
 from cuztomize_masker_page.forms import CustomForm
 from django.http.response import HttpResponseRedirect, JsonResponse
 from django.contrib import messages
-
+from shopping_cart_page.models import *
 from cuztomize_masker_page.models import CustomMask 
 
 # Create your views here.
 def custom_mask(request):
-
+    user = request.user
+    order, created = Order.objects.get_or_create(user=user, complete=False)
     form = CustomForm(request.POST or None, request.FILES or None)
     if (form.is_valid() and request.method == 'POST'):
         if ("cart_bt" in request.POST):
-            form.save()
+            item = form.save()
+            item.order = order
+            item.save()
             return HttpResponseRedirect('/cart/')   
         elif ("wish_bt" in request.POST):
             form.save()
