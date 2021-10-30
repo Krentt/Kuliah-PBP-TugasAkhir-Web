@@ -148,7 +148,7 @@ STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "shopping_cart_page/static"),
-    os.path.join(BASE_DIR, "cuztomize_masker_pager/static"),
+    os.path.join(BASE_DIR, "cuztomize_masker_page/static"),
     os.path.join(BASE_DIR, "login_page/static"),
     os.path.join(BASE_DIR, "product_list_page/static"),
     os.path.join(BASE_DIR, "wishlist_page/static"),
@@ -164,3 +164,4 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, "static")
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'product_list_page/static/media')

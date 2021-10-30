@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+    <head>
+        <!-- Ambil font Alice -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Alice&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <meta charset = "UTF-8" />
+        <!-- Title tab -->
+        <title>Checkout</title> 
+        <style>
+            /* Nempelin ke samping layar */
+            html, body {
+                min-height: 100%;
+            }
+
+            .tengah {
+                background-size:cover; 
+                padding-left:24rem; 
+                padding-right:24rem;
+                height : 100vh; 
+                background-color: rgb(20,20,20);
+                display: flex; 
+                flex-direction: column; 
+                justify-content: center;
+            }
+
+            /* Kotak yang nyimpen form */
+            form {
+                width: 100%;
+                padding: 20px;
+                border-radius: 10px;
+                font-family: 'Alice', serif; 
+            }
+            
+            /* Box Input */
+            input, select {
+                margin-bottom: 10px;
+                border: 1px solid rgb(194, 191, 191); 
+                font-family: 'Alice', serif;
+                background: #bdbbbb;
+                border-radius: 6px; /*Curve border input*/
+                width: calc(100% - 10px); /* Ngatur text box dibawah label */
+                padding: 5px;
+            }
+
+            .item {
+                color:rgb(255, 255, 255);
+            }
+
+            #STEP1, #STEP2, #STEP3, #STEP4, #STEP1FORM, #STEP2FORM, #STEP3FORM {
+                background-color: rgb(50, 55, 62);
+                color: white;
+                padding:1rem;
+                margin-bottom:1rem;
+                border-style: solid;
+                border-width: 1px;
+                border-color: black;
+            }
+            
+            #STEP1, #STEP2, #STEP3 {
+                margin-bottom:0rem;
+                border-bottom-style: none;
+            }
+
+            #STEP4 {
+                margin-bottom:0rem;
+            }
+
+            #STEPS {
+                background-color: rgb(32, 32, 32);
+                padding-left: 1rem;
+                padding-top: 1rem;
+                padding-right: 1rem;
+                padding-bottom: 1rem;
+                border-style: solid;
+                border-width: 2px;
+                border-color: black;
+            }
+
+        </style>
+
+    </head>
+
+    <!-- padding buat handle bates kiri kanan, set background image dan posisinya, handle posisi body supaya di tengah -->
+    <body style = "background-color:rgb(20,20,20) ; height: 100vh ; display: flex ; flex-direction: column ; justify-content: center;">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class = tengah>
+            <label class="item">&nbsp;&nbsp;&nbsp;Secure Checkout</label>
+            <div id="STEPS">
+                <div id="STEP1">
+                        <label class = "item">STEP 1: DETAIL PEMBAYARAN</label>
+                </div>
+                <div id="STEP1FORM">
+                    {% for checkout in checkouts %}
+                    Nama Lengkap: {{checkout.name}} <br>
+                    Email: {{checkout.email}} <br>
+                    Nomor Telepon: {{checkout.telp}} <br>
+                    Alamat: {{checkout.alamat}} <br>    
+                    {% endfor %}
+                </div>
+                
+                <div id="STEP2">
+                    <label class = "item">STEP 2: METODE PENGIRIMAN</label>
+                </div>
+                <div id="STEP2FORM">
+                    {% for pengiriman in pengirimans %}
+                    Durasi: {{pengiriman.durasi}} <br>
+                    Kurir: {{pengiriman.kurir}} <br>
+                    {% endfor %}
+                </div>
+                
+                <div id="STEP3">
+                    <label class = "item">STEP 3: METODE PEMBAYARAN</label>
+                </div>
+                <div id="STEP3FORM">
+                    <div class="item">
+                        <label for="metode">Metode<span></span></label>
+                        <br>
+                        {{form.metode}}
+                    </div>
+                    <input type="submit" value="Next">
+                </div>
+                
+                <div id="STEP4">
+                    <label class = "item">STEP 4: KONFIRMASI ORDER</label>
+                </div>
+            </div>
+        </div>
+    </form>
+    </body>
+</html>

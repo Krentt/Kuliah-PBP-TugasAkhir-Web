@@ -31,11 +31,17 @@ class CreateWishlistItem(View):
         obj = WishlistItem.objects.create(
             owner=request.user, name=name1, price=price1, count=count1
         )
+        obj_counts = WishlistItem.objects.count()
+
+        add_zeros = ""
+        if len(price1) < 3 or price1[-3] != ".":
+            add_zeros = ".00"
 
         item = {
             "id": obj.id,
+            "counter": obj_counts,
             "name": obj.name,
-            "price": obj.price,
+            "price": obj.price + add_zeros,
             "count": obj.count,
         }
         data = {"item": item}
@@ -51,15 +57,23 @@ class UpdateWishlistItem(View):
         count1 = request.GET.get("count", None)
 
         obj = WishlistItem.objects.get(id=id1)
+        obj_counts = WishlistItem.objects.count()
         obj.name = name1
         obj.price = price1
         obj.count = count1
         obj.save()
 
+        add_zeros = ""
+        if len(price1) < 3 or price1[-3] != ".":
+            add_zeros = ".00"
+
+        print(price1, len(price1))
+
         item = {
             "id": obj.id,
+            "counter": obj_counts,
             "name": obj.name,
-            "price": "Rp" + obj.price,
+            "price": "Rp" + obj.price + add_zeros,
             "count": obj.count,
         }
         data = {"item": item}

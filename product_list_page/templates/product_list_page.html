@@ -1,46 +1,78 @@
-{% extends 'main.html' %}
+<!DOCTYPE html>
 {% load static %}
-{% block content %}
-     <h3>Product List Page</h3>
-     <div class="row">
-        <div class="col-lg-4">
-            <img class="thumbnail" src="{% static 'Downloads/placeholder.png' %}">
-            <div class="box-element product">
-                <h6><strong>Product</strong></h6>
-                <hr>
-        
-                <button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
-                <a class="btn btn-outline-success" href="#">View</a>
-                <h4 style="display: inline-block; float: right"><strong>$20</strong></h4>
-        
-            </div>
-        </div>
+<html>
+  <head>
+	  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+    <title>Product List Page</title>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	  <link rel="stylesheet" type="text/css" href="{% static 'css/product_list_page.css' %}">
+	  {% include "home_page/home_navbar.html" %}
 
-        <div class="col-lg-4">
-            <img class="thumbnail" src="{% static 'Downloads/placeholder.png' %}">
-            <div class="box-element product">
-                <h6><strong>Product</strong></h6>
+    <script type="text/javascript">
+      var user = '{{request.user}}'
+  
+      function getToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          var cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      var csrftoken = getToken('csrftoken');
+    </script>
+    
+  </head>
+  <body>
+    <div class="container">
+      <br>
+      <h3>Product List</h3>
+      {% if product %} 
+        {% for ProdukMasker in product %}
+          <div class="row">
+            <div class="col-lg-4">
+              <img class="thumbnail" src="{{ ProdukMasker.imageURL }}">
+              <div class="box-element product">
+                <h5 class="card-title"><strong>Produk: {{ ProdukMasker.nama }}</strong></h5>
+                <p class="card-text">Deskripsi masker: {{ ProdukMasker.deskripsi }}</p>
+                <p class="card-text">Stok tersedia: {{ ProdukMasker.stok }}</p>
+                <p class="card-text">Rating masker: {{ ProdukMasker.rating }} out of 100</p>
+                <div class="card" style="width: 18rem;">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Stok tersedia: {{ ProdukMasker.stok }}</li>
+                    <li class="list-group-item">Rating masker: {{ ProdukMasker.rating }} out of 100</li>
+                  </ul>
+                </div>
+                <!-- <div class="height-100 container d-flex justify-content-center align-items-center">
+                  <div class="card p-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                    </div>
+                  </div>  
+                </div> -->
                 <hr>
-        
-                <button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
+          
+                <button data-product={{ProdukMasker.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
                 <a class="btn btn-outline-success" href="#">View</a>
-                <h4 style="display: inline-block; float: right"><strong>$20</strong></h4>
-        
+                <h4 style="display: inline-block; float: right"><strong>${{ ProdukMasker.harga }}</strong></h4>
+          
+              </div>
             </div>
-        </div>
-
-        <div class="col-lg-4">
-            <img class="thumbnail" src="{% static 'Downloads/placeholder.png' %}">
-            <div class="box-element product">
-                <h6><strong>Product</strong></h6>
-                <hr>
-        
-                <button  class="btn btn-outline-secondary add-btn">Add to Cart</button>
-                <a class="btn btn-outline-success" href="#">View</a>
-                <h4 style="display: inline-block; float: right"><strong>$20</strong></h4>
-        
-            </div>
-        </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		  <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
     </div>
-
-{% endblock content %}
+  </body>
+  {% include "home_page/home_footer.html" %}  
+</html>

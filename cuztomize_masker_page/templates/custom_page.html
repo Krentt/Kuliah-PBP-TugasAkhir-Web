@@ -72,16 +72,24 @@
                   <div class="mb-3">
                     <input class="form-control" type="file" id="formFile" name='style'> 
                   </div>
-                             
+                  
+                  {% if user.is_authenticated %}
                   <div class="button">
                     <input type="submit" name="cart_bt" class="btn btn-success" value="Add to cart">
                     <input type="submit" name="wish_bt" class="btn btn-secondary" value="Add to Wishlist">
                   </div>
+                  {% else %}
+                  <div class="button">
+                    <input type="submit" name="cart_bt" class="btn btn-success" value="Add to cart" disabled>
+                    <input type="submit" name="wish_bt" class="btn btn-secondary" value="Add to Wishlist" disabled>
+                    <input type="submit" name="login" class="btn btn-primary" value="Login Here!">
+                  </div>
+                  {% endif %}
                 </form>
               </div>
             </div>
           </div>
-
+          
           <div class="des">
             <h4>About This Product</h4>
             <p id="description">Every face is unique, and with our customized mask printing, now every face mask can be, too. We’re here to help you design your own mask – whether you’re creating for employees, a sports team or your own spirit of self-expression. Our reusable printed face masks feature breathable, skin-friendly fabric, adjustable ear loops and built-in pockets for replaceable filters (sold separately). Create your own masks with logo using our online and offline DIY options, or let us design for you. Whatever you want, we’ll help you make it happen here – and your customized mask will feel as good as it looks. These reusable custom face masks are not medical devices or personal protective equipment (PPE).</p>

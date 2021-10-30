@@ -1,70 +1,132 @@
 <!DOCTYPE html>
-  <head>
-    <!-- Ambil font Roboto -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <meta charset = "UTF-8" />
-    <!-- Title tab -->
-    <title>Checkout</title> 
-  </head>
-  <style>
-    /* Nempelin ke samping layar */
-    html, body {
-    min-height: 100%;
-    }
-    body, div, form, input, select, textarea, label { 
-    padding: 0;
-    margin: 100;
-    outline: none;
-    font-family: Roboto;
-    font-size: 14px;
-    color: rgb(0, 0, 0);
-    line-height: 22px;
-    }
-    
+    <head>
+        <!-- Ambil font Alice -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Alice&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <meta charset = "UTF-8" />
+        <!-- Title tab -->
+        <title>Checkout</title> 
+        <style>
+            /* Nempelin ke samping layar */
+            html, body {
+                min-height: 100%;
+            }
 
-    /* Kotak yang nyimpen form */
-    form {
-    width: 100%;
-    padding: 20px;
-    border-radius: 10px;
-    background: rgb(170, 165, 165);
-    box-shadow: 0 0 25px  #e600bf; 
-    }
-    
-    /* Box Input */
-    input {
-    margin-bottom: 10px;
-    border: 1px solid rgb(194, 191, 191); 
-    font-family: arial, sans-serif;
-    background: rgb(170, 165, 165);
-    border-radius: 6px; /*Curve border input*/
-    }
-    /* Handle new line tiap box input */
-    input {
-    width: calc(100% - 10px); 
-    padding: 5px;
-    }
-    
-  </style>
-  <!-- padding buat handle bates kiri kanan, set background image dan posisinya, handle posisi body supaya di tengah -->
-  <body style = "padding-left:8rem ; padding-right:8rem ; background-image:url('https://pbs.twimg.com/media/EORTB6mW4AAMqSY?format=png&name=large') ; background-size:cover ; height: 100vh ; display: flex ; flex-direction: column ; justify-content: center;">
+            .tengah {
+                background-size:cover; 
+                padding-left:24rem; 
+                padding-right:24rem;
+                height : 100vh; 
+                background-color: rgb(20,20,20);
+                display: flex; 
+                flex-direction: column; 
+                justify-content: center;
+            }
+
+            /* Kotak yang nyimpen form */
+            form {
+                width: 100%;
+                padding: 20px;
+                border-radius: 10px;
+                font-family: 'Alice', serif; 
+            }
+            
+            /* Box Input */
+            input {
+                margin-bottom: 10px;
+                border: 1px solid rgb(194, 191, 191); 
+                font-family: 'Alice', serif;
+                background: #bdbbbb;
+                border-radius: 6px; /*Curve border input*/
+                width: calc(100% - 10px); /* Ngatur text box dibawah label */
+                padding: 5px;
+            }
+
+            .item {
+                color:rgb(255, 255, 255);
+            }
+
+            #STEP1, #STEP2, #STEP3, #STEP4, #STEP1FORM {
+                background-color: rgb(50, 55, 62);
+                padding:1rem;
+                margin-bottom:1rem;
+                border-style: solid;
+                border-width: 1px;
+                border-color: black;
+            }
+            
+            #STEP1 {
+                margin-bottom:0rem;
+                border-bottom-style: none;
+            }
+            #STEP4 {
+                margin-bottom:0rem;
+            }
+
+            #STEPS {
+                background-color: rgb(32, 32, 32);
+                padding-left: 1rem;
+                padding-top: 1rem;
+                padding-right: 1rem;
+                padding-bottom: 1rem;
+                border-style: solid;
+                border-width: 2px;
+                border-color: black;
+            }
+
+        </style>
+
+    </head>
+
+    <!-- padding buat handle bates kiri kanan, set background image dan posisinya, handle posisi body supaya di tengah -->
+    <body style = "background-color:rgb(20,20,20) ; height: 100vh ; display: flex ; flex-direction: column ; justify-content: center;">
     <form action="" method="POST">
-      {% csrf_token %}
-      <div class="item">
-        <label for="name">Name<span></span></label>
-        <input id="name" type="text" name="name" required/>
-      </div>
-      <div class="item">
-        <label for="npm">NPM<span></span></label>
-        <input id="npm" type="text" name="npm" required/>
-      </div>
-      <div class="item">
-        <label for="DOB">Date of Birth<span></span></label>
-        <input id="DOB" type="date" name="DOB" required/>
-      </div>
-      <input type="submit" value="Submit">
+        {% csrf_token %}
+        <div class = tengah>
+            <label class="item">&nbsp;&nbsp;&nbsp;Secure Checkout</label>
+            <div id="STEPS">
+                <div id="STEP1">
+                        <label class = "item">STEP 1: DETAIL PEMBAYARAN</label>
+                </div>
+                <div id="STEP1FORM">
+                    <div class="item">
+                        <label for="name">Nama Lengkap<span></span></label>
+                        <br>
+                        {{form.name}}
+                    </div>
+                    <div class="item">
+                        <label for="email">Email<span></span></label>
+                        <br>
+                        {{form.email}}
+                    </div>
+                    <div class="item">
+                        <label for="telp">Nomor Telepon<span></span></label>
+                        <br>
+                        {{form.telp}}
+                    </div>
+                    <div class="item">
+                        <label for="alamat">Alamat Pengiriman<span></span></label>
+                        <br>
+                        {{form.alamat}}
+                    </div>
+                    <input type="submit" value="Next">
+                </div>
+                
+                <div id="STEP2">
+                    <label class = "item">STEP 2: METODE PENGIRIMAN</label>
+                </div>
+                
+                <div id="STEP3">
+                    <label class = "item">STEP 3: METODE PEMBAYARAN</label>
+                </div>
+                
+                <div id="STEP4">
+                    <label class = "item">STEP 4: KONFIRMASI ORDER</label>
+                </div>
+            </div>
+        </div>
     </form>
-  </body>
+    </body>
 </html>

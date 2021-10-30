@@ -15,6 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from wishlist_page import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -22,8 +25,8 @@ urlpatterns = [
     path("", include("login_page.urls")),
     path("", include("home_page.urls")),
     path("", include("shopping_cart_page.urls")),
-    path("", include("cuztomize_masker_page.urls")),
     path("", include("product_list_page.urls")),
     path("", include("wishlist_page.urls")),
-    path("", include("checkout_page.urls"))
-]
+    path("", include("checkout_page.urls")),
+    path("", include("cuztomize_masker_page.urls")),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

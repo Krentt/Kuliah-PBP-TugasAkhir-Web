@@ -8,12 +8,8 @@ from cuztomize_masker_page.models import CustomMask
 
 # Create your views here.
 def custom_mask(request):
+
     form = CustomForm(request.POST or None, request.FILES or None)
-    # if (form.is_valid() and request.method == 'POST'):
-    #     form.save() 
-    #     return HttpResponseRedirect('/cart/')
-    # else :
-    #     return render(request, "custom_page.html", {'form':form})
     if (form.is_valid() and request.method == 'POST'):
         if ("cart_bt" in request.POST):
             form.save()
@@ -21,10 +17,15 @@ def custom_mask(request):
         elif ("wish_bt" in request.POST):
             form.save()
             return HttpResponseRedirect('/wishlist/')
+        elif ("login" in request.POST):
+            return HttpResponseRedirect('/login')
         else:
             print("ERROR")
     else :
+        if ("login" in request.POST):
+            return HttpResponseRedirect('/login')
         return render(request, "custom_page.html", {'form':form})
+
 
 def update_deskripsi(request):
     data = {

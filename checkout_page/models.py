@@ -11,24 +11,28 @@ class Checkout(models.Model):
 class Pengiriman(models.Model):
     # Referensi: Tokopedia
     DURASI = (
-        (15000, 'Next Day (1 hari)'),
-        (10000, 'Reguler (2-4 hari)'),
+        ('Next Day (1 hari) *Rp 10.000', 'Next Day (1 hari) *Rp 10.000'),
+        ('Reguler (2-4 hari) *Rp 15.000', 'Reguler (2-4 hari) *Rp 15.000'),
     )
     KURIR = (
-        (13000, 'AnterAja'),
-        (15000, 'Tiki'),
-        (14000, "JNE"),
+        ('AnterAja', 'AnterAja'),
+        ('Tiki', 'Tiki'),
+        ('JNE', "JNE"),
     )
-    durasi = models.CharField(max_length=2, choices=DURASI)
-    kurir = models.CharField(max_length=2, choices=KURIR)
+    durasi = models.CharField(max_length=100, choices=DURASI)
+    kurir = models.CharField(max_length=100, choices=KURIR)
+    if durasi == 'Next Day (1 hari)':
+        harga = 10000
+    else:
+        harga = 15000
 
 class Pembayaran(models.Model):
     # Referensi: Tokopedia
     METODE = (
-        ('Mandiri', 'Mandiri Virtual Account'),
-        ('BCA', 'BCA Virtual Account'),
-        ('BankBCA', 'Bank BCA'),
-        ('BankMANDIRI', 'Bank MANDIRI'),
+        ('Mandiri Virtual Account', 'Mandiri Virtual Account'),
+        ('BCA Virtual Account', 'BCA Virtual Account'),
+        ('Bank BCA', 'Bank BCA'),
+        ('Bank MANDIRI', 'Bank MANDIRI'),
     )
-    metode = models.CharField(max_length=11, choices=METODE)
+    metode = models.CharField(max_length=100, choices=METODE)
 

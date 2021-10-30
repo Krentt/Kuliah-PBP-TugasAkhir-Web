@@ -3,6 +3,7 @@ from django.http.response import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from checkout_page.models import Checkout, Pengiriman, Pembayaran
 from checkout_page.forms import CheckoutForm, PengirimanForm, PembayaranForm
+from shopping_cart_page.models import *
 
 # Create your views here.
 # Method Detail Pembayaran
@@ -14,6 +15,7 @@ def checkout_form(request):
             return HttpResponseRedirect('checkout-2')  # Redirect kalau sudah selesai
 
     else:
+        # Delete semua object
         Checkout.objects.all().delete()
         form = CheckoutForm() # Buat form kosong
 
@@ -28,10 +30,13 @@ def checkout2_form(request):
             return HttpResponseRedirect('checkout-3')  # Redirect kalau sudah selesai
 
     else:
+        # Delete semua object
         Pengiriman.objects.all().delete()
+        checkouts = Checkout.objects.all()
         form = PengirimanForm() # Buat form kosong
+        response = {'checkouts':checkouts, 'form':form}
 
-    return render(request, 'checkout2_layout.html', {'form':form})
+    return render(request, 'checkout2_layout.html', response)
 
 # Method Metode Pembayaran
 def checkout3_form(request):
@@ -42,18 +47,37 @@ def checkout3_form(request):
             return HttpResponseRedirect('checkout-4')  # Redirect kalau sudah selesai
 
     else:
+        # Delete semua object
         Pembayaran.objects.all().delete()
+        checkouts = Checkout.objects.all()
+        pengirimans = Pengiriman.objects.all()
         form = PembayaranForm() # Buat form kosong
+        response = {'checkouts':checkouts, 'pengirimans':pengirimans, 'form':form,}
 
-    return render(request, 'checkout3_layout.html', {'form':form})
+    return render(request, 'checkout3_layout.html', response)
 
 def checkout4(request):
-    checkout = Checkout.objects.all()  
-    pengiriman = Pengiriman.objects.all()
-    pembayaran = Pembayaran.objects.all()
-    response = {'checkout': checkout,
-                'pengiriman': pengiriman,
-                'pembayaran': pembayaran}
-    return render(request, 'checkout4.html', response)
+    checkouts = Checkout.objects.all()  
+    pengirimans = Pengiriman.objects.all()
+    pembayarans = Pembayaran.objects.all()
+    user = request.user
+    order, created = Order.objects.get_or_create(user=user, complete=False)
+    response = {'checkouts': checkouts,
+                'pengirimans': pengirimans,
+                'pembayarans': pembayarans,
+                'user':user, 'order':order}
+
+    return render(request, 'checkout4_layout.html', response)
+
+def checkout_complete(request):
+    Checkout.objects.all().delete()
+    Pengiriman.objects.all().delete()
+    Pembayaran.objects.all().delete()
+    user = request.user
+    order, created = Order.objects.get_or_create(user=user, complete=False)
+    order.complete = True
+    order.save()
+
+    return render(request, 'checkout_complete.html')
 
 
