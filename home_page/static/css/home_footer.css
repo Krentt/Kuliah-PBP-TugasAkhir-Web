@@ -1,19 +1,27 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 footer {
-    display: grid;
-    background-color: black;
-    position: relative;
-    margin-top: 20%;
+    margin-top: auto;
     height: max-content;
+    position: relative;
     bottom: 0;
 }
-footer > #subscription-container {
+footer > .fluid-container {
+    display: grid;
+    background-color: black;
+    margin-top: 6rem;
+}
+footer > .fluid-container > #subscription-container {
     grid-area: 1 / 1 / span 2 / span 1;
     margin-top: 2%;
     max-width: 100%;
     width: 400px;
     height: 100px;
 }
-footer > #contact-us-container {
+footer > .fluid-container > #contact-us-container {
     width: 400px;
     height: 100px;
     max-width: 100%;
@@ -22,26 +30,26 @@ footer > #contact-us-container {
     display: flex;
     flex-direction: column;
 }
-footer > #contact-us-container > .container {
+footer > .fluid-container > #contact-us-container > .container {
     display: flex;
     flex-direction: row;
     margin-top: 4%;
 }
-footer > #contact-us-container > .container >  a {
+footer > .fluid-container >#contact-us-container > .container >  a {
     width: 33.33%;
     margin-left: 10%;
 }
-footer > #contact-us-container > .container >  a > svg {
+footer > .fluid-container > #contact-us-container > .container >  a > svg {
     width: 40px;
     height: 40px;
 }
 @media only screen and (max-width: 800px) {
-    footer > #subscription-container {
+    footer > .fluid-container > #subscription-container {
     grid-area: 1 / 1 / span 2 / span 1;
     margin-top: 2%;
     width: 80%;    
     }
-    footer > #contact-us-container {
+    footer > .fluid-container > #contact-us-container {
     margin-top: 0.5%;
     grid-area: 3 / 1 / span 2 / span 1;
     display: flex;
