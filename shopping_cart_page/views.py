@@ -10,7 +10,6 @@ def cart(request):
 	context = {}
 	if request.user.is_authenticated:
 		user = request.user
-		print(Order.objects.get_or_create(user=user, complete=False))
 		order, created = Order.objects.get_or_create(user=user, complete=False)
 		items = order.orderitem_set.all()
 		customs = order.custommask_set.all()
