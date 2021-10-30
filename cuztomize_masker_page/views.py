@@ -8,8 +8,9 @@ from cuztomize_masker_page.models import CustomMask
 
 # Create your views here.
 def custom_mask(request):
-    user = request.user
-    order, created = Order.objects.get_or_create(user=user, complete=False)
+    if request.user.is_authenticated:
+        user = request.user
+        order, created = Order.objects.get_or_create(user=user, complete=False)
     form = CustomForm(request.POST or None, request.FILES or None)
     if (form.is_valid() and request.method == 'POST'):
         if ("cart_bt" in request.POST):
