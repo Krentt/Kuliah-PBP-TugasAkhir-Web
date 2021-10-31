@@ -10,7 +10,6 @@ $('.update-cart').on('click', function() {
         },
         data:JSON.stringify({'productId':productId, 'action':action}),
         success: function (data) {
-            location.reload()
         },
         error: e => {
             console.log(e.responseText);
