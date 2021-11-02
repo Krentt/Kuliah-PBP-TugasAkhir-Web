@@ -28,7 +28,11 @@ def custom_mask(request):
     else :
         if ("login" in request.POST):
             return HttpResponseRedirect('/login')
-        return render(request, "custom_page.html", {'form':form})
+        elif ("cart_bt" in request.POST):
+            messages.error(request, 'Please fill in all the required fields!')
+        elif ("wish_bt" in request.POST):
+            messages.error(request, 'Please fill in all the required fields!')
+    return render(request, "custom_page.html", {'form':form})
 
 
 def update_deskripsi(request):
