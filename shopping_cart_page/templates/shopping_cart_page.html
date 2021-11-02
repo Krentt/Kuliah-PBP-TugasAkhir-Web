@@ -64,16 +64,16 @@
 							<div style="flex:2; margin-top: 1.5rem"><p style="margin: auto;">{{item.product.nama}}</p></div>
 							<div style="flex:1; margin-top: 1.5rem"><p>${{item.product.harga|floatformat:2}}</p></div>
 							<div style="flex:1; margin-top: 1rem">
-								<p class="quantity{{item.product.id}} quantity">{{item.quantity}}</p>
+								<p class="quantity-{{item.product.id}} quantity">{{item.quantity}}</p>
 								<div class="quantity">
-									<img data-product={{item.product.id}} class="chg-quantity add-item" src="{% static 'images/arrow-up.png' %}">
-									<img data-product={{item.product.id}} class="chg-quantity subtract-item" src="{% static 'images/arrow-down.png' %}">
+									<img data-product={{item.product.id}} data-order={{order.id}} class="chg-quantity add-item" src="{% static 'images/arrow-up.png' %}">
+									<img data-product={{item.product.id}} data-order={{order.id}} class="chg-quantity subtract-item" src="{% static 'images/arrow-down.png' %}">
 								</div>
 							</div>
-							<div style="flex:1 ; margin-top: 1.5rem"><p>${{item.get_total|floatformat:2}}</p></div>
+							<div style="flex:1 ; margin-top: 1.5rem"><p class="get-total-{{item.product.id}}">${{item.get_total|floatformat:2}}</p></div>
 						</div>
 						<div class="cart-row item-{{item.product.id}}">
-							<button data-product={{item.product.id}} data-action="removeAll" 
+							<button data-product={{item.product.id}} data-order={{order.id}}
 							style="flex:1;float:right; margin:5px;"
 							class="btn-outline-danger d-grid gap-2 col-6 mx-auto remove-item">Remove</button>
 						</div>
@@ -109,11 +109,11 @@
 							{% if user.is_authenticated %}
 							<tr>
 								<th><p>Jumlah Item:</p></th>
-								<th><p><strong>{{order.get_items_total}}</strong></p></th>
+								<th><p><strong class="get-items-total-{{order.id}}">{{order.get_items_total}}</strong></p></th>
 							</tr>
 							<tr>
 								<th><p>Total Harga:</p></th>
-								<th><p><strong>${{order.get_price_total|floatformat:2}}</strong></p></th>
+								<th><p><strong class="get-price-total-{{order.id}}">${{order.get_price_total|floatformat:2}}</strong></p></th>
 							</tr>
 							<tr>
 								<th><label>Catatan:</label></th>

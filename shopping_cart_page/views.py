@@ -53,9 +53,12 @@ def addItem(request):
 
 	orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
 	orderItem.quantity = orderItem.quantity + 1
-	data["jumlah"] = orderItem.quantity
-
 	orderItem.save()
+
+	data["quantity"] = orderItem.quantity
+	data["get-total"] = orderItem.get_total()
+	data["get-items-total"] = order.get_items_total()
+	data["get-price-total"] = order.get_price_total()
 
 	return JsonResponse(data)
 
@@ -72,7 +75,11 @@ def subtractItem(request):
 
 	orderItem.quantity = orderItem.quantity - 1
 	orderItem.save()
-	data["jumlah"] = orderItem.quantity
+	
+	data["quantity"] = orderItem.quantity
+	data["get-total"] = orderItem.get_total()
+	data["get-items-total"] = order.get_items_total()
+	data["get-price-total"] = order.get_price_total()
 
 	return JsonResponse(data)
 
@@ -87,8 +94,10 @@ def removeItem(request):
 
 	orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
 	orderItem.quantity = 0
-	data["removeAll"] = True
 	orderItem.save()
+
+	data["get-items-total"] = order.get_items_total()
+	data["get-price-total"] = order.get_price_total()
 
 	if orderItem.quantity == 0:
 		orderItem.delete()
