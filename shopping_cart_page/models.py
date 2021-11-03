@@ -7,9 +7,6 @@ class Order(models.Model):
     complete = models.BooleanField(default=False, null=True, blank=False)
     note = models.CharField(max_length=200, null=True)
 
-    def __str__(self):
-        return str(self.id)
-
     def get_price_total(self):
         orderitems = self.orderitem_set.all()
         customitems = self.custommask_set.all()

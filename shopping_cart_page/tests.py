@@ -1,3 +1,4 @@
+from django.http import response
 from django.test import TestCase
 from django.test import Client
 from django.urls import resolve
@@ -6,15 +7,30 @@ from django.contrib.auth.models import User
 from .models import *
 import time
 
+# Create your tests here.
+
 class ShoppingCartTest(TestCase):
+
+    def setUp(self) -> None:
+        self.client = Client()
+
     def test_shopping_cart_is_exist(self):
-        response = Client().get("/cart/")
+        response = self.client.get("/cart/")
         self.assertEqual(response.status_code, 200)
 
-    def test_using_index_func(self):
+    def test_using_cart_func(self):
         found = resolve("/cart/")
         self.assertEqual(found.func, cart)
     
+    # def test_post_cart(self):
+    #     response = self.client.post('/cart/')
+    #     self.assertEqual(response.status_code, 200)
+
+    # def test_valid_cart(self):
+    #     dictio = {'note': 'masukin data'}
+    #     response = self.client.post('/cart/', dictio)
+    #     self.assertEqual(response.status_code, 200)
+     
     def test_order_attributes(self):
         user1 = User.objects.create(username="ogiorgil", email="ogiorgil@localhost.com")
         obj1 = Order.objects.create(user=user1, complete=False, note='Sebuah Catatan')
@@ -32,6 +48,12 @@ class ShoppingCartTest(TestCase):
         total = sum([item.quantity for item in orderitems])
         totalcustom = sum([item.quantity for item in customitems])
         self.assertEqual(obj1.get_items_total(), total+totalcustom)
+
+    # def test_order_data(self):
+    #     user1 = User.objects.create(username="ogiorgil", email="ogiorgil@localhost.com")
+    #     Order.objects.create(user=user1, complete=False, note='Sebuah Catatan')
+    #     response = self.client.post('/cart/', {'user': user1, 'complete': False, 'note':'Sebuah Catatan'})
+    #     self.assertEqual(response.status_code, 200)
     
     def test_orderitem_attributes(self):
         user1 = User.objects.create(username="ogiorgil", email="ogiorgil@localhost.com")
@@ -41,5 +63,4 @@ class ShoppingCartTest(TestCase):
         self.assertEqual(obj1.product, ProdukMasker.objects.get(nama='Masker kain'))
         self.assertEqual(obj1.order, Order.objects.get(user=User.objects.get(username='ogiorgil')))
         self.assertEqual(obj1.quantity, 10)
-        self.assertEqual(obj1.date_added.strftime("%Y-%m-%d"), time.strftime("%Y-%m-%d"))
         self.assertEqual(obj1.get_total(), obj1.product.harga*obj1.quantity)
