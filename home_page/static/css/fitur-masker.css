@@ -46,6 +46,23 @@ body {
     overflow: hidden; 
     top:50px;
 }
+
+#product-summary-container > #no-product-message-container {
+    height: 12rem; 
+    width: 100%;
+    display: flex;
+}
+#product-summary-container > #no-product-message-container > p {
+    font-size: 60%;
+
+    background-color:rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+#product-summary-container > .cropper {
+    flex: 0 0 7rem;
+    position: relative;
+}
 #product-summary-container > .cropper > .card {
     border-radius: 0;      
     width: 7rem;
@@ -74,10 +91,25 @@ body {
     width: auto;
     height: 6rem;
 }
-#product-summary-container > .cropper {
-    flex: 0 0 7rem;
-    position: relative;
+
+@media only screen and (min-width: 300px) {
+    #product-summary-container > #no-product-message-container > p {
+        font-size: 80%;
+    }
 }
+
+@media only screen and (min-width: 700px) {
+    #product-summary-container > #no-product-message-container > p {
+        font-size: 120%;
+    }
+}
+
+@media only screen and (min-width: 100px) {
+    #product-summary-container > #no-product-message-container > p {
+        font-size: 140%;
+    }
+}
+
 
 .prev,
 .next {

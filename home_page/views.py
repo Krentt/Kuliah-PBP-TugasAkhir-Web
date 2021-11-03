@@ -12,22 +12,16 @@ def index(request) :
     return render(request, 'home_page/home.html')
 
 
-# temp get_image
-import re
-pattern = re.compile("[^.]*(?<=(.))")
 def get_image(request):
-    img_list = ['surgical-mask.png', 'n95-mask.png', 'reusable-mask.png', 'plague-mask.png', 'chemical-mask.png']
-    if request.is_ajax() and request.method == 'GET':
+    if request.method == 'GET':
         request_content = request.GET
-        cur_counter = int(request_content["current_counter"])
-        path_name = img_list[(cur_counter + 1) % len(img_list)]
-        title = re.match(pattern, path_name).group(0)
-        path_name = f"static/test_image/{path_name}"
-        price = "$10.00"
+        cur_counter = int(request_content["current_counter"]) + 1
+        masker = get_object_or_404(ProdukMasker, id=cur_counter)
+        print(masker.imageURL)
         data = {
-            "src" :path_name,
-            "title":title,
-            "price":price
+            "src" : masker.imageURL,
+            "title":masker.nama,
+            "price":"$" + str(masker.harga)
         }
         return JsonResponse(data, status=200)
     else:

@@ -1,18 +1,22 @@
 'use strict'
 
-const number_of_max_image = 20;
+let number_of_max_image = 20;
 let delay_time = 400;
 let initial_image_number = 0;
 let current_image = 0;
 let before_width;
 let is_delayed_next = false;
 let is_delayed_prev = false;
+let is_cur_img_avail = true;
+
+
 function isTouchDevice() {
     return (('ontouchstart' in window) ||
         (navigator.maxTouchPoints > 0) ||
         (navigator.msMaxTouchPoints > 0));
 }
 
+// Handler for horizontal swipe in touchscreen device 
 // code from https://stackoverflow.com/questions/2264072/detect-a-finger-swipe-through-javascript-on-the-iphone-and-android
 document.addEventListener('touchstart', handleTouchStart, false);        
 document.addEventListener('touchmove', handleTouchMove, false);
@@ -65,35 +69,44 @@ function handleTouchMove(evt) {
 
 
 
-
+// get number of user visible image
 function get_num_visible_image() {
     return Math.floor(parseInt($('#product-summary-container').css('width')) / (parseInt($('.cropper').css('width')) || 112));
 }
 
+// 1 displacement = 1 image
 function get_disp() {
     return parseInt($(".cropper").css('width'));
 }
 
+// last dispalcement -> make the right visible image as pivot
 function get_last_disp() {
     let hidden_frac = parseInt($('#product-summary-container').css('width')) / parseInt($('.cropper').css('width')) - get_num_visible_image();
     let disp = get_disp();
     return (2 - hidden_frac) * parseInt(disp) + parseInt($('#product-summary-container').css('padding-left'));
 }
 
+// load image when the page is just loaded
 let counter = 0;
-function load_initial_image() {
+async function load_initial_image() {
     while(current_image < initial_image_number) {
-        append_image(current_image, false);
+        let is_continue = await append_image(current_image, false);
+        if(!is_continue) 
+            break;
         current_image++;
+        $('#no-product-message-container').detach();
     }
 }
 
 
+// next button and swipe handler
 let is_added = false;
-function next_handler() {
+async function next_handler() {
     if (current_image < number_of_max_image) {
-        append_image(counter, true);
-        current_image++;
+        let is_continue = await append_image(counter, true);
+        if(is_continue) {
+            current_image++ ;    
+        }
     }
 
     if(counter  < number_of_max_image - get_num_visible_image() - 2) {
@@ -115,7 +128,6 @@ function move_right(disp) {
     )
 }
 
-
 function bounce_right() {
     let bound = Math.floor(parseInt(get_disp()) / 2);
     
@@ -128,7 +140,9 @@ function bounce_right() {
     
 }
 
-function prev_handler() {
+
+// left button and swipe handler
+function prev_handler() { 
     if(counter == 1 && is_added) {
         move_left(get_last_disp());
         is_added = false;
@@ -152,7 +166,6 @@ function move_left(disp) {
         {left:`+=${disp}`}
     )
 }
-
 
 function bounce_left() {
     let bound = Math.floor(parseInt(get_disp()) / 2);
@@ -203,47 +216,52 @@ window.onresize = function() {
         move_right(before_width - parseInt($('#product-summary-container').css('width')));
         counter = number_of_max_image - get_num_visible_image() - 1 - (number_of_max_image - (initial_image_number - 3) - 1 - counter);
     }
-    before_width = parseInt($('#product-summary-container').css('width'));
+    before_width = parseInt($('#produc  t-summary-container').css('width'));
     initial_image_number = get_num_visible_image() + 3;
 }
 
 
 function append_image(current_counter, is_shift) {
     var data_jsn = {
-        current_counter: current_counter
+        current_counter: current_image
     };
-    $.ajax(
-        {
-            type: 'GET',
-            dataType: 'json',
-            url: "ajax/get_image",
-            data: data_jsn,
-            success: function(response) {
-                let data = {
-                    src: response['src'],
-                    title: response['title'],
-                    price: response['price']
-                };
-                let new_element = create_image(data);
-                
-                $("#product-summary-container").append(new_element);
-                if(is_shift) {
-                    if(is_added) {
-                        $("#product-summary-container > div:last-child").animate(
-                            {left:`-=${(current_counter) * get_disp() + get_last_disp()}`}, 100
-                        )
+    return new Promise((resolve, reject) => {
+        $.ajax(
+            {
+                type: 'GET',
+                dataType: 'json',
+                url: "ajax/get_image",
+                data: data_jsn,
+                success: function(response) {
+                    let data = {
+                        src: response['src'],
+                        title: response['title'],
+                        price: response['price']
+                    };
+                    let new_element = create_image(data);
+                    
+                    $("#product-summary-container").append(new_element);
+                    if(is_shift) {
+                        if(is_added) {
+                            $("#product-summary-container > div:last-child").css("left",`-=${(current_counter - 1) * get_disp() + get_last_disp()}`);
+                        }
+                        else {
+                            $("#product-summary-container > div:last-child").css("left",`-=${(current_counter) * get_disp()}`);
+                        }
                     }
-                    else {
-                        $("#product-summary-container > div:last-child").animate(
-                            {left:`-=${(current_counter + 1) * get_disp()}`}, 100
-                        )
-                    }
+                    resolve(true);
+                },
+                error: function(response) {
+                    
+                    number_of_max_image = current_image;
+                    reject(false);
                 }
             }
-        }
-    )
+        )
+    })   
 }
 
+// render image html
 function create_image(data) {
     var template = [
         "<div class='cropper'>", 

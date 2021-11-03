@@ -59,7 +59,6 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="home_navbar" style="height:fit-content">
     <div class="container">
-      <a class="navbar-brand" href="#"></a>
       <div class="container" id="mobile-nav-button" >
         <button class="navbar-toggler" type="button" style="align-self: center;" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -71,9 +70,9 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           {% if user.is_authenticated %} 
-          <li class="nav-item">
-            <span class="navbar-text" id="username-mobile">Welcome, {{ user.username }}!</span>
-          </li>
+            <li class="nav-item">
+              <span class="navbar-text" id="username-mobile">Welcome, {{ user.username }}!</span>
+            </li>
           {% endif %}
           <li class="nav-item" id="home_btn_navbar">
             <a class="nav-link active" aria-current="page" href="/">Home</a>
@@ -84,9 +83,11 @@
           <li class="nav-item">
             <a class="nav-link active" href="/wishlist/">Wishlist</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="/custom-mask/">Customize Mask</a>
-          </li>
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link active" href="/custom-mask/">Customize Mask</a>
+            </li>
+          {% endif %}
         </ul>
         <form class="d-flex" style="display: flex;">
           <a href="/cart/" style="margin-right: 25px; align-self: center;" id="cart-for-dekstop">
