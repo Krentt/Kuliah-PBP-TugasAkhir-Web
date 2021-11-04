@@ -2,7 +2,6 @@ from django.shortcuts import render
 
 from cuztomize_masker_page.forms import CustomForm
 from django.http.response import HttpResponseRedirect, JsonResponse
-from django.contrib import messages
 from shopping_cart_page.models import *
 from cuztomize_masker_page.models import CustomMask 
 
@@ -12,6 +11,7 @@ def custom_mask(request):
         user = request.user
         order, created = Order.objects.get_or_create(user=user, complete=False)
     form = CustomForm(request.POST or None, request.FILES or None)
+    state = ""
     if (form.is_valid() and request.method == 'POST'):
         if ("cart_bt" in request.POST):
             item = form.save()
@@ -29,10 +29,10 @@ def custom_mask(request):
         if ("login" in request.POST):
             return HttpResponseRedirect('/login')
         elif ("cart_bt" in request.POST):
-            messages.error(request, 'Please fill in all the required fields!')
+            state = 'Please fill in all the required fields!'
         elif ("wish_bt" in request.POST):
-            messages.error(request, 'Please fill in all the required fields!')
-    return render(request, "custom_page.html", {'form':form})
+            state = 'Please fill in all the required fields!'
+    return render(request, "custom_page.html", {'form':form, 'state':state})
 
 
 def update_deskripsi(request):
