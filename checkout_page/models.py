@@ -30,7 +30,12 @@ class Pengiriman(models.Model):
             return 10000
         else:
             return 15000
-
+    def hapus_harga(self):
+        if self.durasi == 'Next Day (1 hari) *Rp 10.000':
+            self.durasi = 'Next Day (1 hari)'
+        else:
+            self.durasi = 'Reguler (2-4 hari)'
+            
 class Pembayaran(models.Model):
     # Referensi: Tokopedia
     METODE = (
