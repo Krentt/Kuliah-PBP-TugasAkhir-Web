@@ -21,10 +21,7 @@ class Pengiriman(models.Model):
     )
     durasi = models.CharField(max_length=100, choices=DURASI)
     kurir = models.CharField(max_length=100, choices=KURIR)
-    # if durasi == 'Next Day (1 hari)':
-    #     harga = 10000
-    # else:
-    #     harga = 15000
+
     def cek_harga(self):
         if self.durasi == 'Next Day (1 hari) *Rp 10.000':
             return 10000
