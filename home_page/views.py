@@ -6,7 +6,7 @@ from django.core import serializers
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from product_list_page.models import ProdukMasker
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 import threading
 
@@ -64,13 +64,12 @@ def produk_masker_handler(sender, **produk) :
         deskripsi = produk["instance"].deskripsi
         stok = produk["instance"].stok
         price = produk["instance"].harga
-        url_image = "." + produk["instance"].imageURL.replace("//", '/')
+        url_image = produk["instance"].imageURL
 
-        email = EmailMessage(
+        email = EmailMultiAlternatives(
             subject="New Mask is Out !!!",
             body=f"""
-            New Mask
-            Title: {nama_produk}
+            {nama_produk}
             deskripsi: {deskripsi}
             stok: {stok}
             price: {price}
@@ -78,9 +77,15 @@ def produk_masker_handler(sender, **produk) :
             from_email= settings.EMAIL_HOST_USER,
             to=recipient_list,
         )
-        email.attach_file(url_image)
+        html_content = f"""
+        <h1> {nama_produk} </h1>
+        <h4> deskripsi: {deskripsi} </h4>
+        <h4> stok:  {stok} <h4>
+        <h4> harga: {price} <h4>
+        <img src="{url_image}">
+        """
+        email.attach_alternative(html_content, 'text/html')
         email.send()
 
     t = threading.Thread(target=mysender, daemon=True)
     t.start()
-

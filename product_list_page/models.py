@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 class ProdukMasker(models.Model):
     nama = models.CharField(max_length=255)
@@ -6,7 +7,7 @@ class ProdukMasker(models.Model):
     deskripsi = models.CharField(max_length=255)
     harga = models.BigIntegerField()
     stok = models.BigIntegerField()
-    image = models.ImageField(null=True, blank=True)
+    image = CloudinaryField(null=True, blank=True, folder="ProdukMasker")
 
     def __str__(self):
         return self.nama
