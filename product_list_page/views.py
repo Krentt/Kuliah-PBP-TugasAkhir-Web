@@ -11,7 +11,7 @@ def plp(request):
     response = {'product': product}
     return render(request, 'product_list_page.html', response)
 
-@login_required(login_url="/admin/login/")
+@login_required(login_url="../login")
 def add_mask(request):
     if request.method == 'POST':
         form = ProdukMaskerForm(request.POST, request.FILES)

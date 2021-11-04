@@ -266,7 +266,7 @@ function create_image(data) {
     var template = [
         "<div class='cropper'>", 
             "<div class='card'>", 
-                "<img class='card-img-top' src={{src}} loading='auto'>",
+                "<img class='card-img-top' src={{src}}>",
                 "<h1 class='card-title'>{{title}}</h1>",
                 "<p class='card-text'>{{price}}</p>",
             "</div>", 
