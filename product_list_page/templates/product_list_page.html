@@ -50,7 +50,9 @@
                 <hr>
           
                 <button data-product={{ProdukMasker.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-                <button data-product={{ProdukMasker.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Wishlist</button>
+                <a href="/wishlist/">
+                  <button class="btn btn-outline-secondary add-btn update-cart">Add to Wishlist</button>
+                </a>
                 <h4 style="display: inline-block; float: right"><strong>${{ ProdukMasker.harga }}</strong></h4>
           
               </div>
