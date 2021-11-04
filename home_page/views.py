@@ -8,7 +8,6 @@ from django.dispatch import receiver
 from product_list_page.models import ProdukMasker
 from django.core.mail import EmailMessage
 from django.conf import settings
-import os
 import threading
 
 # Create your views here.
@@ -65,11 +64,12 @@ def produk_masker_handler(sender, **produk) :
         deskripsi = produk["instance"].deskripsi
         stok = produk["instance"].stok
         price = produk["instance"].harga
-        url_image = "." + produk["instance"].imageURL.replace("//", os.sep)
+        url_image = "." + produk["instance"].imageURL.replace("//", '/')
 
         email = EmailMessage(
             subject="New Mask is Out !!!",
-            body=f"""New Mask
+            body=f"""
+            New Mask
             Title: {nama_produk}
             deskripsi: {deskripsi}
             stok: {stok}
