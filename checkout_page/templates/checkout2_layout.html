@@ -34,7 +34,7 @@
             }
             
             /* Box Input */
-            input, select {
+            input, select, button {
                 margin-bottom: 10px;
                 border: 1px solid rgb(194, 191, 191); 
                 font-family: 'Alice', serif;
@@ -42,6 +42,10 @@
                 border-radius: 6px; /*Curve border input*/
                 width: calc(100% - 10px); /* Ngatur text box dibawah label */
                 padding: 5px;
+            }
+
+            button, #tombol {
+                margin:5px;
             }
 
             .item {
@@ -115,7 +119,7 @@
                         <br>
                         {{form.kurir}}
                     </div>
-                    <input type="submit" value="Next">
+                    <input id="tombol" type="submit" value="Next">
                 </div>
                 
                 <div id="STEP3">
@@ -126,6 +130,9 @@
                     <label class = "item">STEP 4: KONFIRMASI ORDER</label>
                 </div>
             </div>
+            <button type="button" onclick="location.href='/'">
+                Kembali ke home page
+            </button>
         </div>
     </form>
     </body>

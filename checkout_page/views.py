@@ -5,10 +5,10 @@ from checkout_page.models import Checkout, Pengiriman, Pembayaran
 from checkout_page.forms import CheckoutForm, PengirimanForm, PembayaranForm
 from shopping_cart_page.models import *
 
-# Create your views here.
+# Dilakukan objects.all().delete() pada setiap tahap agar hanya ada satu model dari masing-masing tahap 
 # Method Detail Pembayaran
 def checkout_form(request):
-    if request.method == 'POST': # Ngecek POST atau GET. POST itu protokol masukin data, GET itu buat ngambil data.
+    if request.method == 'POST': # Kalo POST, save data.
         Checkout.objects.all().delete()
         form = CheckoutForm(request.POST)
         if form.is_valid():
@@ -24,7 +24,7 @@ def checkout_form(request):
 
 # Method Metode Pengiriman
 def checkout2_form(request):
-    if request.method == 'POST': # Ngecek POST atau GET. POST itu protokol masukin data, GET itu buat ngambil data.
+    if request.method == 'POST':
         Pengiriman.objects.all().delete()
         form = PengirimanForm(request.POST)
         if form.is_valid():
@@ -42,7 +42,7 @@ def checkout2_form(request):
 
 # Method Metode Pembayaran
 def checkout3_form(request):
-    if request.method == 'POST': # Ngecek POST atau GET. POST itu protokol masukin data, GET itu buat ngambil data.
+    if request.method == 'POST': 
         Pembayaran.objects.all().delete()
         form = PembayaranForm(request.POST)
         if form.is_valid():
@@ -59,6 +59,7 @@ def checkout3_form(request):
 
     return render(request, 'checkout3_layout.html', response)
 
+# Method Konfirmasi Checkout
 def checkout4(request):
     checkouts = Checkout.objects.all()  
     pengirimans = Pengiriman.objects.all()
@@ -72,6 +73,7 @@ def checkout4(request):
 
     return render(request, 'checkout4_layout.html', response)
 
+# Method Checkout Complete
 def checkout_complete(request):
     Checkout.objects.all().delete()
     Pengiriman.objects.all().delete()

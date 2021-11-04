@@ -25,14 +25,13 @@ class Pengiriman(models.Model):
     #     harga = 10000
     # else:
     #     harga = 15000
-    # def cek_harga(self):
-    #     pengirimans = self.pengiriman_set.all()
-    #     for pengiriman in pengirimans:
-    #         if pengiriman == 'Next Day (1 hari) *Rp 10.000':
-    #             harga = 10000
-    #         else:
-    #             harga = 15000
-    #         return harga
+    def cek_harga(self):
+        pengirimans = self.pengiriman_set.all()
+        for pengiriman in pengirimans:
+            if pengiriman == 'Next Day (1 hari) *Rp 10.000':
+                return 10000
+            else:
+                return 15000
 
 class Pembayaran(models.Model):
     # Referensi: Tokopedia
