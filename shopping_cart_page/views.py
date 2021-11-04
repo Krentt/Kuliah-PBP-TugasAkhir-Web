@@ -23,7 +23,10 @@ def cart(request):
 	return render(request, "shopping_cart_page.html", context)
 
 def updateItem(request):
-	data = json.loads(request.body)
+	if len(request.body) == 0:
+		data = {'productId':'1', 'action': 'remove'}
+	else:
+		data = json.loads(request.body)
 	product = ProdukMasker.objects.get(id=data['productId'])
 	order, created = Order.objects.get_or_create(user=request.user, complete=False)
 	orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)

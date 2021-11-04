@@ -119,9 +119,11 @@
 								<th><label>Catatan:</label></th>
 								<th><p>{{ order.note }}</p></th>
 							</tr>
+							{% if order.get_items_total != 0 %}
 							<tr>
 								<th colspan="3"><a class="btn btn-success d-grid col-6 mx-auto" href="/checkout-1">Checkout</a></th>
 							</tr>
+							{% endif %}
 							{% else %}
 							<tr>
 								<th colspan="3"><a class="btn btn-primary d-grid col-6 mx-auto" href="{% url 'login' %}?next=cart">Login</a></th>
