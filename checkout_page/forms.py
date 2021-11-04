@@ -19,12 +19,12 @@ class CheckoutForm(forms.ModelForm):
             }),
             'telp' : TextInput(attrs={
                 'class' : 'form-control',
-                'placeholder' : '08111756969',
+                'placeholder' : '08111751234',
                 'required' : ''
             }),
             'alamat' : TextInput(attrs={
                 'class' : 'form-control',
-                'placeholder' : 'Rumah Ricardo Carlos',
+                'placeholder' : 'Rumah Ricardo',
                 'required' : ''
             }),
         }

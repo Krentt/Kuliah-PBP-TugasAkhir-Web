@@ -21,10 +21,18 @@ class Pengiriman(models.Model):
     )
     durasi = models.CharField(max_length=100, choices=DURASI)
     kurir = models.CharField(max_length=100, choices=KURIR)
-    if durasi == 'Next Day (1 hari)':
-        harga = 10000
-    else:
-        harga = 15000
+    # if durasi == 'Next Day (1 hari)':
+    #     harga = 10000
+    # else:
+    #     harga = 15000
+    # def cek_harga(self):
+    #     pengirimans = self.pengiriman_set.all()
+    #     for pengiriman in pengirimans:
+    #         if pengiriman == 'Next Day (1 hari) *Rp 10.000':
+    #             harga = 10000
+    #         else:
+    #             harga = 15000
+    #         return harga
 
 class Pembayaran(models.Model):
     # Referensi: Tokopedia
