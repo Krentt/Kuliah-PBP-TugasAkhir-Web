@@ -34,7 +34,7 @@ function appendToTable(item) {
     <tr id="item-${item.id}">
         <td class="itemCounter itemData" name="counter">${item.counter}</td>
         '<td class="itemName itemData" name="name">${item.name}</td>
-        '<td class="itemPrice itemData" name="price"><label class="currency">Rp</label><label class="harga">${item.price}</label></td>
+        '<td class="itemPrice itemData" name="price"><label class="currency">$</label><label class="harga">${item.price}</label></td>
         '<td class="itemCount itemData" name="count">${item.count}</td>
         '<td style="width: 150px;">
             <button type="button"

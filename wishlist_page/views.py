@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from django.views.generic import View, ListView
+from django.views.generic import View
 from .models import WishlistItem
 from django.http import JsonResponse
 
@@ -14,13 +14,6 @@ def index(request):
         return render(request, "wishlist_page/wishlist_index.html", response)
     else:
         return render(request, "wishlist_page/wishlist_index.html")
-
-
-class CrudView(ListView):
-    model = WishlistItem
-    template_name = "wishlist_page/wishlist_index.html"
-    context_object_name = "wishlists"
-
 
 class CreateWishlistItem(View):
     def get(self, request):
@@ -73,7 +66,7 @@ class UpdateWishlistItem(View):
             "id": obj.id,
             "counter": obj_counts,
             "name": obj.name,
-            "price": "Rp" + obj.price + add_zeros,
+            "price": "$" + obj.price + add_zeros,
             "count": obj.count,
         }
         data = {"item": item}
