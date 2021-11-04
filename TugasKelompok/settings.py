@@ -16,6 +16,8 @@ import dj_database_url
 import os
 
 from django.contrib.messages import constants as messages
+from dotenv import load_dotenv
+load_dotenv()
 
 MESSAGE_TAGS = {
     messages.DEBUG: "alert-secondary",
@@ -164,3 +166,10 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, "static")
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS =True
+EMAIL_PORT =587
+EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
+EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))

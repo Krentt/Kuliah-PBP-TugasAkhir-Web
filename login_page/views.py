@@ -2,7 +2,7 @@ from django.http.response import HttpResponseRedirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .forms import RegisterForm
 from django.contrib import messages
 
@@ -50,6 +50,7 @@ def register_user(request):
     return render(request, 'login_page/register.html', context)
 
 def login_user(request):
+    redirect_to = request.GET.get('next', 'home-page')
     if (request.method == 'POST'):
         form = AuthenticationForm(request, request.POST)
         if (form.is_valid()):
@@ -60,7 +61,7 @@ def login_user(request):
                 login(request, user)
                 messages.success(request, 'Login successful!')
                 messages.info(request, f"Logged in as {username}.")
-                return HttpResponseRedirect('home-page')
+                return HttpResponseRedirect(redirect_to=redirect_to)
         
         messages.error(request, 'Invalid username or password')
 

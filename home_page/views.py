@@ -6,18 +6,27 @@ from django.core import serializers
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from product_list_page.models import ProdukMasker
+from django.core.mail import EmailMessage
+from django.conf import settings
+import os
+import threading
 
 # Create your views here.
 def index(request) :
     return render(request, 'home_page/home.html')
 
-
+adder = [1]
 def get_image(request):
-    if request.method == 'GET':
+    if request.is_ajax() and request.method == 'GET':
         request_content = request.GET
-        cur_counter = int(request_content["current_counter"]) + 1
+        cur_counter = int(request_content["current_counter"]) + adder[0]
         masker = get_object_or_404(ProdukMasker, id=cur_counter)
-        print(masker.imageURL)
+        print(masker.rating)
+        # only shor product with image
+        while (masker.imageURL == ''):
+            adder[0] += 1
+            cur_counter += 1
+            masker = get_object_or_404(ProdukMasker, id=cur_counter)
         data = {
             "src" : masker.imageURL,
             "title":masker.nama,
@@ -37,7 +46,7 @@ def subscribe(request):
         else:
             return JsonResponse({"message": "duplicate"}, status=200)
     else:
-        return JsonResponse({"message": "Error"}, status=400)    
+        return HttpResponseNotFound()
 
 
 # keperluan debug
@@ -47,6 +56,31 @@ def get_all_mail(request):
     data = serializers.serialize('json', emails)
     return HttpResponse(json.dumps(json.loads(data), indent=2), content_type='application/json')
 
+
 @receiver(post_save, sender=ProdukMasker)
-def produk_masker_handler(sender, **kwargs) :
-    print(kwargs["instance"].nama)
+def produk_masker_handler(sender, **produk) :
+    def mysender():
+        recipient_list = [semail['email'] for semail in SubscribedEmail.objects.all().values()]
+        nama_produk = produk["instance"].nama
+        deskripsi = produk["instance"].deskripsi
+        stok = produk["instance"].stok
+        price = produk["instance"].harga
+        url_image = "." + produk["instance"].imageURL.replace("//", os.sep)
+
+        email = EmailMessage(
+            subject="New Mask is Out !!!",
+            body=f"""New Mask
+            Title: {nama_produk}
+            deskripsi: {deskripsi}
+            stok: {stok}
+            price: {price}
+            """,
+            from_email= settings.EMAIL_HOST_USER,
+            to=recipient_list,
+        )
+        email.attach_file(url_image)
+        email.send()
+
+    t = threading.Thread(target=mysender, daemon=True)
+    t.start()
+
