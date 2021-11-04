@@ -19,6 +19,7 @@ def cart(request):
 	else:
 		items = customs = order = []
 		form = NoteForm()
+		
 	context = {'items':items, 'order':order, 'form':form, 'customs':customs}
 	return render(request, "shopping_cart_page.html", context)
 
@@ -27,20 +28,26 @@ def updateItem(request):
 		data = {'productId':'1', 'action': 'remove'}
 	else:
 		data = json.loads(request.body)
+
 	product = ProdukMasker.objects.get(id=data['productId'])
 	order, created = Order.objects.get_or_create(user=request.user, complete=False)
 	orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+
 	if (data['action'] == 'add'):
 		orderItem.quantity = orderItem.quantity + 1
 	elif (data['action'] == 'subtract'):
 		orderItem.quantity = orderItem.quantity - 1
 	elif (data['action'] == 'remove'):
 		orderItem.quantity = 0
+
 	orderItem.save()
+
 	if orderItem.quantity == 0:
 		orderItem.delete()
+
 	data["quantity"] = orderItem.quantity
 	data["get-total"] = orderItem.get_total()
 	data["get-items-total"] = order.get_items_total()
 	data["get-price-total"] = order.get_price_total()
+	
 	return JsonResponse(data)
