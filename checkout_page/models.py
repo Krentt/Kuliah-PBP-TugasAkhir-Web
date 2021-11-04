@@ -5,7 +5,7 @@ from django.db import models
 class Checkout(models.Model):
     name = models.CharField(max_length=60)
     email = models.EmailField()
-    telp = models.IntegerField()
+    telp = models.BigIntegerField()
     alamat = models.TextField()
 
 class Pengiriman(models.Model):
