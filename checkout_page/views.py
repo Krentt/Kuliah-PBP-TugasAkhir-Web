@@ -113,26 +113,26 @@ def checkout_complete(request):
 
     return render(request, 'checkout_complete.html')
 
-# @login_required(login_url='/login')
-# class AjaxCalcPrice(View):
-#     def get(self, request):
-#         if request.is_ajax():
-#             pengirimans = Pengiriman.objects.first()
-#             user = request.user
-#             order, created = Order.objects.get_or_create(user=user, complete=False)
-#             hargatotal = pengirimans.cek_harga() + order.get_price_total()
-#             return JsonResponse({'harga':hargatotal}, status=200)
-            
-#         return render(request, 'checkout4_layout.html')
+@login_required(login_url='/login')
+class AjaxCalcPrice(View):
+    def get(self, request):
+        if request.is_ajax():
+            pengirimans = Pengiriman.objects.first()
+            user = request.user
+            order, created = Order.objects.get_or_create(user=user, complete=False)
+            hargatotal = 0
+            return JsonResponse({'harga':hargatotal}, status=200)
+        return JsonResponse({'harga':hargatotal}, status=200)    
+        return render(request, 'checkout4_layout.html')
 
 @login_required(login_url='/login')
-def AjaxCalcPrice(request):
+def AjaxCalcPrice2(request):
     if request.is_ajax():
         pengirimans = Pengiriman.objects.first()
         user = request.user
         order, created = Order.objects.get_or_create(user=user, complete=False)
-        hargatotal = pengirimans.cek_harga() + order.get_price_total()
+        hargatotal = 0
         return JsonResponse({'harga':hargatotal}, status=200)
-        
+    return JsonResponse({'harga':hargatotal}, status=200)   
     return render(request, 'checkout4_layout.html')
 
