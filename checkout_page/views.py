@@ -114,6 +114,7 @@ def checkout_complete(request):
     return render(request, 'checkout_complete.html')
 
 @login_required(login_url='/login')
+# Method buat hitung harga akhir
 def AjaxCalcPrice2(request):
     if request.is_ajax():
         pengirimans = Pengiriman.objects.first()
