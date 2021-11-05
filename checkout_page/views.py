@@ -125,3 +125,14 @@ class AjaxCalcPrice(View):
             
         return render(request, 'checkout4_layout.html')
 
+# @login_required(login_url='/login')
+# def AjaxCalcPrice(request):
+#     if request.is_ajax():
+#         pengirimans = Pengiriman.objects.first()
+#         user = request.user
+#         order, created = Order.objects.get_or_create(user=user, complete=False)
+#         hargatotal = pengirimans.cek_harga() + order.get_price_total()
+#         return JsonResponse({'harga':hargatotal}, status=200)
+        
+#     return render(request, 'checkout4_layout.html')
+
