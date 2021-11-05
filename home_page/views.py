@@ -77,7 +77,7 @@ def produk_masker_handler(sender, **produk) :
             <h1> {nama_produk} </h1>
             <h4> deskripsi: {deskripsi} </h4>
             <h4> stok:  {stok} <h4>
-            <h4> harga: {price} <h4>
+            <h4> harga: ${price} <h4>
             <img src="{url_image}">
             <a href="https://pbp-c07.herokuapp.com/unsubscribe/{pk}">Unsubscribe</a>
             """
