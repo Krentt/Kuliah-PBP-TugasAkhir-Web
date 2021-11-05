@@ -45,3 +45,10 @@ class CustomMask (models.Model):
         total = self.price * self.quantity
         return total
 
+    @property
+    def imageURL(self):
+        try:
+            url = self.style.url
+        except:
+            url = ''
+        return url
