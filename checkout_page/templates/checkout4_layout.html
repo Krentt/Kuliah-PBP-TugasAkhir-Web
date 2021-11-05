@@ -112,7 +112,7 @@
                 <div id="STEP2FORM">
                     {% for pengiriman in pengirimans %}
                     Durasi: {{pengiriman.durasi}} <br>
-                    Harga Pengiriman: {{pengiriman.cek_harga}} <br>
+                    Harga Pengiriman: $<span id='hargapengiriman'>{{pengiriman.cek_harga}}</span> <br>
                     Kurir: {{pengiriman.kurir}} <br>
                     {% endfor %}
                 </div>
@@ -131,7 +131,7 @@
                 </div>
                 <div id="STEP4FORM">
                     Banyak produk: {{order.get_items_total}} <br>
-                    Harga total produk: ${{order.get_price_total}} <br>
+                    Harga total produk: $<span id='hargatotalproduk'>{{order.get_price_total}}</span> <br>
                     Harga akhir: <button type="button" class="calcprice">Calculate Price</button><br>
                     Note: {{order.note}} <br>
                     Jika ingin mengganti detail checkout, tekan tombol Ganti. <br>

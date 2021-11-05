@@ -24,9 +24,9 @@ class Pengiriman(models.Model):
 
     def cek_harga(self):
         if self.durasi == 'Next Day (1 hari)':
-            return '$3'
+            return 3
         else:
-            return '$1'
+            return 1
 
 class Pembayaran(models.Model):
     # Referensi: Tokopedia
