@@ -1,7 +1,7 @@
 $document.ready(function(){
     $(".calcprice").click(function(){
         $.ajax({
-            url: 'checkout-4',
+            url: 'calc',
             type: 'GET',
             success: function(response) {
                 $(".calcprice").text(response.harga)
@@ -12,10 +12,20 @@ $document.ready(function(){
 
 $('.calcprice').on('click', function() {
     $.ajax({
-        url: 'checkout-4',
+        url: 'calc',
         type: 'GET',
         success: function(response) {
             $(".calcprice").text(response.harga)
         }
     })
 })
+
+$('.calcprice').on('click', function() {
+    $.ajax({
+        url: 'calc2',
+        type:'GET',
+        success: function(response) {
+            $(".calcprice").text(response.harga)
+        }
+      });
+});

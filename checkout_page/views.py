@@ -122,6 +122,7 @@ class AjaxCalcPrice(View):
             order, created = Order.objects.get_or_create(user=user, complete=False)
             hargatotal = 0
             return JsonResponse({'harga':hargatotal}, status=200)
+        hargatotal = 0
         return JsonResponse({'harga':hargatotal}, status=200)    
         return render(request, 'checkout4_layout.html')
 
@@ -133,6 +134,7 @@ def AjaxCalcPrice2(request):
         order, created = Order.objects.get_or_create(user=user, complete=False)
         hargatotal = 0
         return JsonResponse({'harga':hargatotal}, status=200)
+    hargatotal = 0
     return JsonResponse({'harga':hargatotal}, status=200)   
     return render(request, 'checkout4_layout.html')
 
