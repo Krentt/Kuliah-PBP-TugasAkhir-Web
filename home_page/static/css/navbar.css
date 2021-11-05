@@ -1,0 +1,53 @@
+.navbar {
+    padding: 0rem 1rem;
+}
+
+.navbar .nav-item{
+    padding:1rem;
+}
+
+#cart-icon{
+    width:25px;
+    display: inline-block;
+    margin-left: 15px;
+}
+
+#cart-for-mobile {
+    display: none;
+}
+#username-for-mobile {
+    display: none; 
+}
+
+.nav-item:hover {
+    cursor: pointer;
+}
+
+/* lg breakpoint bootstrap */
+@media only screen and (max-width: 992px) {
+    #navbarSupportedContent > form > a {
+    margin-left: 15%;
+    }    
+    #cart-for-dekstop {
+    display: none;
+    }
+    #cart-for-mobile {
+    display: block;
+    }
+    #navbarSupportedContent > form {
+    width: fit-content;
+    }
+    #navbarSupportedContent > form > .navbar-text {
+    display: none;
+    }
+    #username-for-mobile {
+    display: block;
+    }
+    #navbarSupportedContent > form > a {
+    margin-bottom: 10px;
+    }
+
+    #username-mobile {
+    display: block;
+    }
+}
