@@ -1,10 +1,11 @@
 from django.shortcuts import render
+from django.views.generic import View
 from django.http.response import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from checkout_page.models import Checkout, Pengiriman, Pembayaran
 from checkout_page.forms import CheckoutForm, PengirimanForm, PembayaranForm
 from shopping_cart_page.models import *
-from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 # User harus sudah login
 @login_required(login_url='/login')
@@ -112,4 +113,15 @@ def checkout_complete(request):
 
     return render(request, 'checkout_complete.html')
 
+@login_required(login_url='/login')
+class AjaxCalcPrice(View):
+    def get(self, request):
+        if request.is_ajax():
+            pengirimans = Pengiriman.objects.first()
+            user = request.user
+            order, created = Order.objects.get_or_create(user=user, complete=False)
+            hargatotal = pengirimans.cek_harga() + order.get_price_total()
+            return JsonResponse({'harga':hargatotal}, status=200)
+            
+        return render(request, 'checkout4_layout.html')
 
