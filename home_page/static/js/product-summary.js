@@ -83,13 +83,13 @@ function get_disp() {
 function get_last_disp() {
     let hidden_frac = parseInt($('#product-summary-container').css('width')) / parseInt($('.cropper').css('width')) - get_num_visible_image();
     let disp = get_disp();
-    return (2 - hidden_frac) * parseInt(disp) + parseInt($('#product-summary-container').css('padding-left'));
+    return (1 - hidden_frac) * parseInt(disp) + parseInt($('#product-summary-container').css('padding-left'));
 }
 
 // load image when the page is just loaded
 let counter = 0;
 async function load_initial_image() {
-    while(current_image < initial_image_number) {
+    while(current_image < initial_image_number && current_image < number_of_max_image) {
         let is_continue = await append_image(current_image, false);
         if(!is_continue) 
             break;
@@ -102,23 +102,24 @@ async function load_initial_image() {
 // next button and swipe handler
 let is_added = false;
 async function next_handler() {
+
+    if (counter == number_of_max_image - get_num_visible_image() - 1 && !is_added) {
+        move_right(get_last_disp());
+        is_added = true;
+        counter++;
+    }
+    else if(counter  <= number_of_max_image - get_num_visible_image() - 1) {
+        move_right(get_disp());
+        counter++;
+    }
+    else {
+        bounce_right();
+    }
     if (current_image < number_of_max_image) {
         let is_continue = await append_image(counter, true);
         if(is_continue) {
             current_image++ ;    
         }
-    }
-
-    if(counter  < number_of_max_image - get_num_visible_image() - 2) {
-        move_right(get_disp());
-        counter++;
-    }
-    else if (counter == number_of_max_image - get_num_visible_image() - 2 && !is_added) {
-        move_right(get_last_disp());
-        is_added = true;
-    }
-    else {
-        bounce_right();
     }
 }
 
@@ -143,9 +144,11 @@ function bounce_right() {
 
 // left button and swipe handler
 function prev_handler() { 
+    
     if(counter == 1 && is_added) {
         move_left(get_last_disp());
         is_added = false;
+        counter--;
     }
     else if (counter > 0) {
         move_left(get_disp());
@@ -159,6 +162,7 @@ function prev_handler() {
         $("#product-summary-container > div:last-child").detach();
         current_image--;
     }
+
 }
 
 function move_left(disp) {
@@ -214,9 +218,9 @@ window.onresize = function() {
     }
     if(is_added) {
         move_right(before_width - parseInt($('#product-summary-container').css('width')));
-        counter = number_of_max_image - get_num_visible_image() - 1 - (number_of_max_image - (initial_image_number - 3) - 1 - counter);
+        counter = initial_image_number - 3 + counter - get_num_visible_image();
     }
-    before_width = parseInt($('#produc  t-summary-container').css('width'));
+    before_width = parseInt($('#product-summary-container').css('width'));
     initial_image_number = get_num_visible_image() + 3;
 }
 

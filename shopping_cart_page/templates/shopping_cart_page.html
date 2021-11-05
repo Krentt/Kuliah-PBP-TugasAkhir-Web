@@ -141,6 +141,7 @@
 				<div class="col-lg-12" style="margin-bottom: 50px;">
 					<div class="box-element">
 						<div class="cart-row">
+							<div style="flex:1" class="text-center"><strong>Style</strong></div>
 							<div style="flex:1" class="text-center"><strong>Sex</strong></div>
 							<div style="flex:1" class="text-center"><strong>Size</strong></div>
 							<div style="flex:1" class="text-center"><strong>Model</strong></div>
@@ -152,6 +153,7 @@
 		
 						{% for custom in customs %}
 						<div class="cart-row">
+							<div style="flex:1"><img class="row-image rounded mx-auto d-block" src="{{custom.imageURL}}"></div>
 							<div style="flex:1; margin-top: 0.5rem" class="text-center"><p style="margin: auto;">{{custom.sex}}</p></div>
 							<div style="flex:1; margin-top: 0.5rem" class="text-center"><p style="margin: auto;">{{custom.size}}</p></div>
 							<div style="flex:1; margin-top: 0.5rem" class="text-center"><p style="margin: auto;">{{custom.model}}</p></div>
