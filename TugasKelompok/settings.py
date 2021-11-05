@@ -157,6 +157,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "product_list_page/static"),
     os.path.join(BASE_DIR, "wishlist_page/static"),
     os.path.join(BASE_DIR, "home_page/static"),
+    os.path.join(BASE_DIR, "checkout_page/static"),
 ]
 
 # Default primary key field type

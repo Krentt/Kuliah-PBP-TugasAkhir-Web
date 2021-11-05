@@ -101,7 +101,7 @@ def checkout_complete(request):
     pengirimans = Pengiriman.objects.all()
     pembayarans = Pembayaran.objects.all()
     # Redirect ke checkout-1 kalau user secara manual akses checkout-complete  
-    if not checkouts.exists() and not pengirimans.exists() and not pembayarans.exists():
+    if not checkouts.exists() or not pengirimans.exists() or not pembayarans.exists():
         return HttpResponseRedirect('checkout-1')
     Checkout.objects.all().delete()
     Pengiriman.objects.all().delete()
@@ -114,23 +114,13 @@ def checkout_complete(request):
     return render(request, 'checkout_complete.html')
 
 @login_required(login_url='/login')
-class AjaxCalcPrice(View):
-    def get(self, request):
-        if request.is_ajax():
-            pengirimans = Pengiriman.objects.first()
-            user = request.user
-            order, created = Order.objects.get_or_create(user=user, complete=False)
-            hargatotal = 0
-            return JsonResponse({'harga':hargatotal}, status=200)   
-        return render(request, 'checkout4_layout.html')
-
-@login_required(login_url='/login')
+# Method buat hitung harga akhir
 def AjaxCalcPrice2(request):
     if request.is_ajax():
         pengirimans = Pengiriman.objects.first()
         user = request.user
         order, created = Order.objects.get_or_create(user=user, complete=False)
-        hargatotal = 0
+        hargatotal = pengirimans.cek_harga() + order.get_price_total()
         return JsonResponse({'harga':hargatotal}, status=200)  
     return render(request, 'checkout4_layout.html')
 
