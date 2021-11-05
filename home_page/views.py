@@ -43,13 +43,6 @@ def subscribe(request):
         return HttpResponseNotFound()
 
 
-# keperluan debug
-import json
-def get_all_mail(request):
-    emails = SubscribedEmail.objects.all()
-    data = serializers.serialize('json', emails)
-    return HttpResponse(json.dumps(json.loads(data), indent=2), content_type='application/json')
-
 
 @receiver(post_save, sender=ProdukMasker)
 def produk_masker_handler(sender, **produk) :
@@ -60,7 +53,7 @@ def produk_masker_handler(sender, **produk) :
         price = produk["instance"].harga
         url_image = produk["instance"].imageURL
 
-        for pk, dest in [(semail['email'], semail['email']) for semail in SubscribedEmail.objects.all().values()]:
+        for pk, dest in [(semail['pk'], semail['email']) for semail in SubscribedEmail.objects.all().values()]:
             email = EmailMultiAlternatives(
                 subject="New Mask is Out !!!",
                 body=f"""
@@ -100,6 +93,6 @@ def unsubscribe(request, id):
     try:
         subscribe_email = get_object_or_404(SubscribedEmail ,id=id)
         subscribe_email.delete()
-        return HttpResponse('You have unsibscrebed', status=200)
+        return HttpResponse('You have unsubscribed our newsletter', status=200)
     except:
         return HttpResponse('Email not found', status=404)
