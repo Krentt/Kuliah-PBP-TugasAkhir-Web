@@ -1,3 +1,4 @@
+from os import stat
 from django.http.response import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from home_page.forms import SubscribeForm
@@ -20,12 +21,6 @@ def get_image(request):
         request_content = request.GET
         cur_counter = int(request_content["current_counter"]) + adder[0]
         masker = get_object_or_404(ProdukMasker, id=cur_counter)
-        print(masker.rating)
-        # only shor product with image
-        while (masker.imageURL == ''):
-            adder[0] += 1
-            cur_counter += 1
-            masker = get_object_or_404(ProdukMasker, id=cur_counter)
         data = {
             "src" : masker.imageURL,
             "title":masker.nama,
@@ -59,33 +54,52 @@ def get_all_mail(request):
 @receiver(post_save, sender=ProdukMasker)
 def produk_masker_handler(sender, **produk) :
     def mysender():
-        recipient_list = [semail['email'] for semail in SubscribedEmail.objects.all().values()]
         nama_produk = produk["instance"].nama
         deskripsi = produk["instance"].deskripsi
         stok = produk["instance"].stok
         price = produk["instance"].harga
         url_image = produk["instance"].imageURL
 
-        email = EmailMultiAlternatives(
-            subject="New Mask is Out !!!",
-            body=f"""
-            {nama_produk}
-            deskripsi: {deskripsi}
-            stok: {stok}
-            price: {price}
-            """,
-            from_email= settings.EMAIL_HOST_USER,
-            to=recipient_list,
-        )
-        html_content = f"""
-        <h1> {nama_produk} </h1>
-        <h4> deskripsi: {deskripsi} </h4>
-        <h4> stok:  {stok} <h4>
-        <h4> harga: {price} <h4>
-        <img src="{url_image}">
-        """
-        email.attach_alternative(html_content, 'text/html')
-        email.send()
+        for dest in [semail['email'] for semail in SubscribedEmail.objects.all().values()]:
+            email = EmailMultiAlternatives(
+                subject="New Mask is Out !!!",
+                body=f"""
+                {nama_produk}
+                deskripsi: {deskripsi}
+                stok: {stok}
+                price: {price}
+                """,
+                from_email= settings.EMAIL_HOST_USER,
+                to=[dest],
+            )
+            html_style = """
+            <style>
+                h1, h4 {
+                    color: black;
+                }
+            </style>\n
+            """
+
+            html_content = f"""
+            <h1> {nama_produk} </h1>
+            <h4> deskripsi: {deskripsi} </h4>
+            <h4> stok:  {stok} <h4>
+            <h4> harga: {price} <h4>
+            <img src="{url_image}">
+            <a href="https://pbp-c07.herokuapp.com/unsubscribe/{pk}">Unsubscribe</a>
+            """
+
+            html_content = html_style + html_content
+            email.attach_alternative(html_content, 'text/html')
+            email.send()
 
     t = threading.Thread(target=mysender, daemon=True)
     t.start()
+
+def unsubscribe(request, id):
+    try:
+        subscribe_email = get_object_or_404(SubscribedEmail ,id=id)
+        subscribe_email.delete()
+        return HttpResponse('You have unsibscrebed', status=200)
+    except:
+        return HttpResponse('Email not found', status=404)

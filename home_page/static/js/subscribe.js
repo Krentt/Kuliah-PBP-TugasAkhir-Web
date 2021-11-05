@@ -12,7 +12,7 @@ $('#footer-subscribe-form').submit(function(event) {
                 alert(response['message'])
             }
             else {
-                alert(`You have already subscribed our newslatter`)
+                alert(`You have already subscribed to our newslatter`)
             }
         },
         error: function(response) {
