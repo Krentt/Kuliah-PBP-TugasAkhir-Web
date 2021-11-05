@@ -11,7 +11,7 @@
 
 # Cerita aplikasi:
 
-Kami ingin membuat bisnis kecil-kecilan di masa pandemi ini. Bisnis yang profitable adalah bisnis menjual masker. Jadi, aplikasi yang akan kami buat adalah web untuk menampilkan dan menjual produk kami. Masker yang dipesan dapat dikustomisasi sesuai dengan keinginan pembeli. Guest user hanya bisa melihat-lihat dan menambahkan item pada shopping cart. Untuk dapat melakukan checkout dan kustomisasi masker, user harus membuat akun. Admin dapat melihat stok barang dan melihat statistik website. Manfaatnya adalah memberikan alternatif solusi masker kepada masyarakat. Selain itu, user juga dapat menyimpan barang yang mau dibeli di wishlist page.
+Kami ingin membuat bisnis kecil-kecilan di masa pandemi ini. Bisnis yang profitable adalah bisnis menjual masker. Jadi, aplikasi yang akan kami buat adalah web untuk menampilkan dan menjual produk kami. Masker yang dipesan dapat dikustomisasi sesuai dengan keinginan pembeli. Guest user hanya bisa melihat-lihat dan menambahkan item pada shopping cart. Untuk dapat melakukan checkout dan kustomisasi masker, user harus membuat akun. Selain itu, registered user juga dapat menyimpan barang yang mau dibeli di wishlist page. Admin dapat melihat stok barang dan melihat statistik website. Manfaatnya adalah memberikan alternatif solusi masker kepada masyarakat. 
 
 # Daftar modul yang akan diimplementasikan:
 - Login page (Rasyad Jabbar Poncosewoyo - 2006596106)
