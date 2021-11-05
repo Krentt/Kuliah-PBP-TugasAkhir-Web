@@ -1,20 +1,16 @@
+from django import http
+from django.http import response
 from django.test import TestCase
 from django.test import Client
 from django.urls import resolve
 from .views import *
+from django.contrib.auth.models import User
 from .models import *
+import time
 
 # Create your tests here.
 
-class LoginTest(TestCase):
-
-    def setUp(self) -> None:
-        self.client = Client()
-
-    def test_home_page_is_exist(self):
-        response = self.client.get("/home-page")
+class Test(TestCase):
+    def test_testing_is_exist(self):
+        response = Client().get('/home-page')
         self.assertEqual(response.status_code, 200)
-
-    def test_using_home_page_func(self):
-        found = resolve("/home-page")
-        self.assertEqual(found.func, home_page)
