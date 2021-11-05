@@ -101,7 +101,7 @@ def checkout_complete(request):
     pengirimans = Pengiriman.objects.all()
     pembayarans = Pembayaran.objects.all()
     # Redirect ke checkout-1 kalau user secara manual akses checkout-complete  
-    if not checkouts.exists() and not pengirimans.exists() and not pembayarans.exists():
+    if not checkouts.exists() or not pengirimans.exists() or not pembayarans.exists():
         return HttpResponseRedirect('checkout-1')
     Checkout.objects.all().delete()
     Pengiriman.objects.all().delete()
