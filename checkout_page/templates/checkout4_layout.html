@@ -111,6 +111,7 @@
                 <div id="STEP2FORM">
                     {% for pengiriman in pengirimans %}
                     Durasi: {{pengiriman.durasi}} <br>
+                    Harga Pengiriman: ${{pengiriman.cek_harga}} <br>
                     Kurir: {{pengiriman.kurir}} <br>
                     {% endfor %}
                 </div>
