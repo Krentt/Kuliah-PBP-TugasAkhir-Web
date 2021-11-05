@@ -1,6 +1,6 @@
 'use strict'
 
-let number_of_max_image = 9;
+let number_of_max_image = 20;
 let delay_time = 400;
 let initial_image_number = 0;
 let current_image = 0;

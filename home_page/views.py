@@ -60,7 +60,7 @@ def produk_masker_handler(sender, **produk) :
         price = produk["instance"].harga
         url_image = produk["instance"].imageURL
 
-        for dest in [semail['email'] for semail in SubscribedEmail.objects.all().values()]:
+        for pk, dest in [(semail['email'], semail['email']) for semail in SubscribedEmail.objects.all().values()]:
             email = EmailMultiAlternatives(
                 subject="New Mask is Out !!!",
                 body=f"""
