@@ -1,7 +1,7 @@
 $document.ready(function(){
     $(".calcprice").click(function(){
         $.ajax({
-            url: 'calc',
+            url: '/calc/',
             type: 'GET',
             success: function(response) {
                 $(".calcprice").text(response.harga)
@@ -12,8 +12,8 @@ $document.ready(function(){
 
 $('.calcprice').on('click', function() {
     $.ajax({
-        url: 'calc',
-        type: 'GET',
+        url: '/calc/',
+        type: 'get',
         success: function(response) {
             $(".calcprice").text(response.harga)
         }
@@ -22,8 +22,18 @@ $('.calcprice').on('click', function() {
 
 $('.calcprice').on('click', function() {
     $.ajax({
-        url: 'calc2',
+        url: '/calc2/',
         type:'GET',
+        success: function(response) {
+            $(".calcprice").text(response.harga)
+        }
+      });
+});
+
+$('.calcprice').on('click', function() {
+    $.ajax({
+        url: '/calc2/',
+        type:'get',
         success: function(response) {
             $(".calcprice").text(response.harga)
         }
