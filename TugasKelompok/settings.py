@@ -82,6 +82,11 @@ MIDDLEWARE = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+]
+
 ROOT_URLCONF = "TugasKelompok.urls"
 
 TEMPLATES = [
