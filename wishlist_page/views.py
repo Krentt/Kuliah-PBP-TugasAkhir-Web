@@ -3,8 +3,24 @@ from django.shortcuts import render
 from django.views.generic import View
 from .models import WishlistItem
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.core import serializers
+import json
 
 # Create your views here.
+
+
+@csrf_exempt
+def request_data(request):
+    # objs = WishlistItem.objects.get(owner=1)
+    objs = WishlistItem.objects.all()
+    data = serializers.serialize("json", objs)
+    struct = json.loads(data)
+    # data = json.dumps(struct[0])
+    print(data)
+
+    # returns list of maps
+    return JsonResponse(struct, safe=False)
 
 
 def index(request):
@@ -14,6 +30,7 @@ def index(request):
         return render(request, "wishlist_page/wishlist_index.html", response)
     else:
         return render(request, "wishlist_page/wishlist_index.html")
+
 
 class CreateWishlistItem(View):
     def get(self, request):
