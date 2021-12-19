@@ -1,4 +1,7 @@
+import json
 from os import stat
+from django.db.models.query import QuerySet
+from django.http.request import QueryDict
 from django.http.response import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from home_page.forms import SubscribeForm
@@ -9,8 +12,12 @@ from django.dispatch import receiver
 from product_list_page.models import ProdukMasker
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 import threading
 
+from wishlist_page.models import WishlistItem
+
+from cloudinary import CloudinaryResource
 # Create your views here.
 def index(request) :
     return render(request, 'home_page/home.html')
@@ -31,8 +38,34 @@ def get_image(request):
         return HttpResponseNotFound()    
 
 
+def mobile_get_data(request, max_data):
+    data = ProdukMasker.objects.values()[:int(max_data)]
+
+    # ambil url gambar cloudinary
+    for e in data:
+        if e["image"]:
+            e["image"] = e["image"].build_url()
+    
+    return JsonResponse(list(data), safe=False)
+
+@csrf_exempt
+def mobile_subscribe(request):
+
+    if request.method == "POST":
+        email_dict = json.loads(request.body)
+        form = SubscribeForm(email_dict)
+        if form.is_valid():
+            # form.save()
+            return JsonResponse({"message": "Thank You"}, status=200)
+        else:
+            return JsonResponse({"message": "duplicate"}, status=200)
+    else:
+        return HttpResponseNotFound()
+
+
+
 def subscribe(request):
-    if request.is_ajax() and request.method == 'POST':
+    if request.method == 'POST':
         form = SubscribeForm(request.POST)
         if form.is_valid():
             form.save()
