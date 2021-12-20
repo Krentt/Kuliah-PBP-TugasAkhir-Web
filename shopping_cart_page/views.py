@@ -73,7 +73,7 @@ def orderJson(request):
 
     else:
         dataorder = {}
-        # dataorder = {'id': 3, 'user': 3, 'complete': False, 'note': 'Ini sebuah catatan'}
+        dataorder = {'id': 3, 'user': 3, 'complete': False, 'note': 'Ini sebuah catatan'}
     
     # print(dataorder)
     return JsonResponse(dataorder, safe=False)
@@ -86,6 +86,7 @@ def itemJson(request):
         print(data)
         # order = data["order"]
         # product = data["product"]
+        # quantity = data["quantity"]
         # orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
         # if quantity = 0:
         #     orderItem.delete()
@@ -97,10 +98,12 @@ def itemJson(request):
         order, created = Order.objects.get_or_create(user=request.user, complete=False)
         items = order.orderitem_set.all()
         dataitems = serializers.serialize('json', items)
+        dataitems = json.loads(dataitems)
     else:
         items = []
         dataitems = serializers.serialize('json', items)
-        # dataitems = [{"model": "shopping_cart_page.orderitem", "pk": 4, "fields": {"product": 2, "order": 3, "quantity": 2, "date_added": "2021-12-17T11:59:03.541Z"}}, {"model": "shopping_cart_page.orderitem", "pk": 5, "fields": {"product": 1, "order": 3, "quantity": 1, "date_added": "2021-12-19T02:54:56.496Z"}}]
+        dataitems = '[{"model": "shopping_cart_page.orderitem", "pk": 4, "fields": {"product": 2, "order": 3, "quantity": 2, "date_added": "2021-12-17T11:59:03.541Z"}}, {"model": "shopping_cart_page.orderitem", "pk": 5, "fields": {"product": 1, "order": 3, "quantity": 1, "date_added": "2021-12-19T02:54:56.496Z"}}]'
+        dataitems = json.loads(dataitems)
     # print(dataitems)
     return JsonResponse(dataitems, safe=False)
 
@@ -112,10 +115,12 @@ def productJson(request):
         for i in items:
             dataproducts.append(i.product)
         dataproducts = serializers.serialize('json', dataproducts)
+        dataproducts = json.loads(dataproducts)
     else:
         dataproducts = []
         dataproducts = serializers.serialize('json', dataproducts)
-        # dataproducts = [{"model": "product_list_page.produkmasker", "pk": 2, "fields": {"nama": "Plague Mask", "rating": 11, "deskripsi": "Deskripsi Plague Mask", "harga": 11, "stok": 24, "image": "image/upload/v1638871626/ProdukMasker/unrdc9dgeoyr5pyqmfxh.png"}}, {"model": "product_list_page.produkmasker", "pk": 1, "fields": {"nama": "Chemical Mask", "rating": 11, "deskripsi": "Deskripsi Chemical Mask", "harga": 11, "stok": 24, "image": "image/upload/v1638864884/ProdukMasker/djni0tval1kvkj1retr6.png"}}]
+        dataproducts = '[{"model": "product_list_page.produkmasker", "pk": 2, "fields": {"nama": "Plague Mask", "rating": 11, "deskripsi": "Deskripsi Plague Mask", "harga": 11, "stok": 24, "image": "image/upload/v1638871626/ProdukMasker/unrdc9dgeoyr5pyqmfxh.png"}}, {"model": "product_list_page.produkmasker", "pk": 1, "fields": {"nama": "Chemical Mask", "rating": 11, "deskripsi": "Deskripsi Chemical Mask", "harga": 11, "stok": 24, "image": "image/upload/v1638864884/ProdukMasker/djni0tval1kvkj1retr6.png"}}]'
+        dataproducts = json.loads(dataproducts)
     # print(dataproducts)
     return JsonResponse(dataproducts, safe=False)
 
@@ -124,10 +129,12 @@ def customJson(request):
         order, created = Order.objects.get_or_create(user=request.user, complete=False)
         customs = order.custommask_set.all()
         datacustoms = serializers.serialize('json', customs)
+        datacustoms = json.loads(datacustoms)
     else:
         customs = []
         datacustoms = serializers.serialize('json', customs)
-        # datacustoms = [{"model": "cuztomize_masker_page.custommask", "pk": 2, "fields": {"sex": "F", "size": "XL", "model": "SURGICAL", "color": "RED", "style": "image/upload/v1639746424/custom-mask-style/fftiwdkbkxkdb1p9utzy.png", "price": 15.0, "quantity": 100, "order": 3}}, {"model": "cuztomize_masker_page.custommask", "pk": 3, "fields": {"sex": "M", "size": "L", "model": "SPONGE", "color": "RED", "style": "image/upload/v1639882890/custom-mask-style/ea2sv3jejc7nw9vmyecl.png", "price": 15.0, "quantity": 100, "order": 3}}]
+        datacustoms = '[{"model": "cuztomize_masker_page.custommask", "pk": 2, "fields": {"sex": "F", "size": "XL", "model": "SURGICAL", "color": "RED", "style": "image/upload/v1639746424/custom-mask-style/fftiwdkbkxkdb1p9utzy.png", "price": 15.0, "quantity": 100, "order": 3}}, {"model": "cuztomize_masker_page.custommask", "pk": 3, "fields": {"sex": "M", "size": "L", "model": "SPONGE", "color": "RED", "style": "image/upload/v1639882890/custom-mask-style/ea2sv3jejc7nw9vmyecl.png", "price": 15.0, "quantity": 100, "order": 3}}]'
+        datacustoms = json.loads(datacustoms)
     # print(datacustoms)
     return JsonResponse(datacustoms, safe=False)
 
