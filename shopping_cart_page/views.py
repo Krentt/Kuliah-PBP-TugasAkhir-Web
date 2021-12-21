@@ -59,13 +59,14 @@ def updateItem(request):
 @csrf_exempt
 def orderJson(request):
     if request.method == 'POST':
-        print(request.body)
+        # print(request.body)
         data = json.loads(request.body)
-        print(data)
-        # user = data["user"]
-        # note = data["note"]
-        # order, created = Order.objects.get_or_create(user=user, complete=False)
-        # order.note = note
+        # print(data)
+        user = data["user"]
+        note = data["note"]
+        order, created = Order.objects.get_or_create(user=user, complete=False)
+        order.note = note
+        order.save()
     
     if request.user.is_authenticated:
         order, created = Order.objects.get_or_create(user=request.user, complete=False)
@@ -81,18 +82,18 @@ def orderJson(request):
 @csrf_exempt
 def itemJson(request):
     if request.method == 'POST':
-        print(request.body)
+        # print(request.body)
         data = json.loads(request.body)
-        print(data)
-        # order = data["order"]
-        # product = data["product"]
-        # quantity = data["quantity"]
-        # orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
-        # if quantity = 0:
-        #     orderItem.delete()
-        # else:
-        #     orderItem.quantity = quantity
-        #     orderItem.save()
+        # print(data)
+        order = data["order"]
+        product = data["product"]
+        quantity = data["quantity"]
+        orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+        if quantity == 0:
+            orderItem.delete()
+        else:
+            orderItem.quantity = quantity
+            orderItem.save()
     
     if request.user.is_authenticated:
         order, created = Order.objects.get_or_create(user=request.user, complete=False)
@@ -107,6 +108,7 @@ def itemJson(request):
     # print(dataitems)
     return JsonResponse(dataitems, safe=False)
 
+@csrf_exempt
 def productJson(request):
     if request.user.is_authenticated:
         order, created = Order.objects.get_or_create(user=request.user, complete=False)
@@ -124,6 +126,7 @@ def productJson(request):
     # print(dataproducts)
     return JsonResponse(dataproducts, safe=False)
 
+@csrf_exempt
 def customJson(request):
     if request.user.is_authenticated:
         order, created = Order.objects.get_or_create(user=request.user, complete=False)
@@ -138,6 +141,7 @@ def customJson(request):
     # print(datacustoms)
     return JsonResponse(datacustoms, safe=False)
 
+@csrf_exempt
 def getJson(request):
     jsonget = {}
     
