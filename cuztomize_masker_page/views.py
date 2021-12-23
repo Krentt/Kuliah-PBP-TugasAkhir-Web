@@ -5,6 +5,7 @@ from cuztomize_masker_page.forms import CustomForm
 from django.http.response import HttpResponseRedirect, JsonResponse
 from shopping_cart_page.models import *
 from cuztomize_masker_page.models import CustomMask 
+from django.forms.models import model_to_dict
 
 # Create your views here.
 def custom_mask(request):
@@ -58,6 +59,7 @@ def add_custom(request):
         style = data["style"]
         custom = CustomMask.objects.get_or_create(sex = sex, size = size, model = model, color = color, style = style)
         custom.save()
+        dataorder = model_to_dict(custom)
 
     else:
         dataorder = {}
