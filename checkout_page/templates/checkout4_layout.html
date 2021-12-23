@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
     <head>
         <!-- Ambil font Alice -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -111,6 +112,7 @@
                 <div id="STEP2FORM">
                     {% for pengiriman in pengirimans %}
                     Durasi: {{pengiriman.durasi}} <br>
+                    Harga Pengiriman: $<span id='hargapengiriman'>{{pengiriman.cek_harga}}</span> <br>
                     Kurir: {{pengiriman.kurir}} <br>
                     {% endfor %}
                 </div>
@@ -129,7 +131,8 @@
                 </div>
                 <div id="STEP4FORM">
                     Banyak produk: {{order.get_items_total}} <br>
-                    Harga total: {{order.get_price_total}} <br>
+                    Harga total produk: $<span id='hargatotalproduk'>{{order.get_price_total}}</span> <br>
+                    Harga akhir: <button type="button" class="calcprice">Calculate Price</button><br>
                     Note: {{order.note}} <br>
                     Jika ingin mengganti detail checkout, tekan tombol Ganti. <br>
                     <button type="button" onclick="location.href='checkout-1'">
@@ -147,5 +150,9 @@
             </div>
         </div>
     </form>
+
+    <!-- Script -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/complete.js' %}"></script>
     </body>
 </html>

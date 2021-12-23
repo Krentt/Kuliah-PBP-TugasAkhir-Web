@@ -18,6 +18,7 @@ import os
 from django.contrib.messages import constants as messages
 import cloudinary
 from dotenv import load_dotenv
+
 load_dotenv()
 
 MESSAGE_TAGS = {
@@ -64,9 +65,11 @@ INSTALLED_APPS = [
     "checkout_page",
     "cuztomize_masker_page",
     "wishlist_page",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -75,6 +78,13 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
 ]
 
 ROOT_URLCONF = "TugasKelompok.urls"
@@ -157,6 +167,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "product_list_page/static"),
     os.path.join(BASE_DIR, "wishlist_page/static"),
     os.path.join(BASE_DIR, "home_page/static"),
+    os.path.join(BASE_DIR, "checkout_page/static"),
 ]
 
 # Default primary key field type
@@ -166,18 +177,18 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, "static")
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_USE_TLS =True
-EMAIL_PORT =587
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
 EMAIL_HOST_USER = "pbp.c07.2021@gmail.com"
 EMAIL_HOST_PASSWORD = "pbp-c07-masker"
 
-cloudinary.config( 
-  cloud_name = "dvfyxrw6z", 
-  api_key = "562174785244237", 
-  api_secret = "-LQDFd49kjBj8PWCDUIYO7m6XZY" 
+cloudinary.config(
+    cloud_name="dvfyxrw6z",
+    api_key="562174785244237",
+    api_secret="-LQDFd49kjBj8PWCDUIYO7m6XZY",
 )

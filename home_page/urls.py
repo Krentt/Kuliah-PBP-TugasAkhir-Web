@@ -1,9 +1,11 @@
 from django.urls import path
-from .views import index, get_image, subscribe, get_all_mail
+from .views import *
 
 urlpatterns = [
     path('', index),
     path('ajax/get_image', get_image),
     path('ajax/subscribe', subscribe),
-    path('all_email', get_all_mail)
+    path('unsubscribe/<id>', unsubscribe),
+    path('api/mobile/get-data/<max_data>', mobile_get_data),
+    path('api/mobile/subscribe', mobile_subscribe),
 ]
