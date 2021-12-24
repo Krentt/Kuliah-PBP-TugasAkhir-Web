@@ -61,9 +61,6 @@ def add_custom(request):
         style = cloudinary.uploader.upload(request.FILES['image'].file, folder="custom-mask-style")['public_id']
         order, created = Order.objects.get_or_create(user=request.user, complete=False)
         custom = CustomMask.objects.get_or_create(order=order, sex = sex, size = size, model = model, color = color, style = style)
-        
-        
-
         dataorder = {}
 
     else:
