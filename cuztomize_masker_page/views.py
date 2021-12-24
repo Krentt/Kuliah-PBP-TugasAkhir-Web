@@ -57,7 +57,8 @@ def add_custom(request):
         model = data["model"]
         color = data["color"]
         style = data["style"]
-        custom = CustomMask.objects.get_or_create(sex = sex, size = size, model = model, color = color, style = style)
+        order, created = Order.objects.get_or_create(user=request.user, complete=False)
+        custom = CustomMask.objects.get_or_create(order=order, sex = sex, size = size, model = model, color = color, style = style)
         dataorder = {}
 
     else:
