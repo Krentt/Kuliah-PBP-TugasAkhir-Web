@@ -176,7 +176,7 @@ def addJson(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             data = json.loads(request.body)
-            product = ProdukMasker.objects.get(id=data['productId'])
+            product = ProdukMasker.objects.get(id=int(data['productId']))
             order, created = Order.objects.get_or_create(user=request.user, complete=False)
             orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
             orderItem.quantity = orderItem.quantity + 1
