@@ -6,6 +6,7 @@ from checkout_page.models import Checkout, Pengiriman, Pembayaran
 from checkout_page.forms import CheckoutForm, PengirimanForm, PembayaranForm
 from shopping_cart_page.models import *
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # User harus sudah login
 @login_required(login_url='/login')
@@ -124,3 +125,11 @@ def AjaxCalcPrice2(request):
         return JsonResponse({'harga':hargatotal}, status=200)  
     return render(request, 'checkout4_layout.html')
 
+@csrf_exempt
+def checkoutJson(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            order, created = Order.objects.get_or_create(user=request.user, complete=False)
+            order.complete = True
+            order.save()
+    return JsonResponse('Finished', safe=False)  

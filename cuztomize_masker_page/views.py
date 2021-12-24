@@ -51,14 +51,12 @@ def update_deskripsi(request):
 @csrf_exempt
 def add_custom(request):
     if request.method == 'POST':
-        
-        data = json.loads(request.POST['text'])
-        
+        data = json.loads(request.body)
         sex = data["sex"]
         size = data["size"]
         model = data["model"]
         color = data["color"]
-        style = cloudinary.uploader.upload(request.FILES['image'].file, folder="custom-mask-style")['public_id']
+        style = data["style"]
         order, created = Order.objects.get_or_create(user=request.user, complete=False)
         custom = CustomMask.objects.get_or_create(order=order, sex = sex, size = size, model = model, color = color, style = style)
         dataorder = {}
