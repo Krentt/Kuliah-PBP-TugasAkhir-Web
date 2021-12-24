@@ -6,6 +6,7 @@ from django.http.response import HttpResponseRedirect, JsonResponse
 from shopping_cart_page.models import *
 from cuztomize_masker_page.models import CustomMask 
 from django.forms.models import model_to_dict
+import cloudinary
 
 # Create your views here.
 def custom_mask(request):
@@ -46,19 +47,18 @@ def update_deskripsi(request):
     }
     return JsonResponse(data)
 
+
 @csrf_exempt
 def add_custom(request):
     if request.method == 'POST':
-        # print(request.body)
         data = json.loads(request.body)
-        # print(data)
         sex = data["sex"]
         size = data["size"]
         model = data["model"]
         color = data["color"]
         style = data["style"]
         custom = CustomMask.objects.get_or_create(sex = sex, size = size, model = model, color = color, style = style)
-        dataorder = model_to_dict(custom)
+        dataorder = {}
 
     else:
         dataorder = {}
