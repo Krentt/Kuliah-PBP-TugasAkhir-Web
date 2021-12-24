@@ -52,7 +52,6 @@ def update_deskripsi(request):
 def add_custom(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        print(data)
         sex = data["sex"]
         size = data["size"]
         model = data["model"]
