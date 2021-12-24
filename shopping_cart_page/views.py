@@ -128,15 +128,30 @@ def productJson(request):
 
 @csrf_exempt
 def customJson(request):
+    if request.method == 'POST':
+        # print(request.body)
+        data = json.loads(request.body)
+        # print(data)
+        order = int(data["order"])
+        index = int(data["index"])
+        customs = CustomMask.objects.all()
+        daftar_custom = []
+        for i in customs:
+            if i.order.id == order:
+                daftar_custom.append(i)
+        custom = daftar_custom[index]
+        custom.delete()
+
     if request.user.is_authenticated:
         order, created = Order.objects.get_or_create(user=request.user, complete=False)
         customs = order.custommask_set.all()
         datacustoms = serializers.serialize('json', customs)
+        print(customs[0])
         datacustoms = json.loads(datacustoms)
     else:
         customs = []
         datacustoms = serializers.serialize('json', customs)
-        # datacustoms = '[{"model": "cuztomize_masker_page.custommask", "pk": 2, "fields": {"sex": "F", "size": "XL", "model": "SURGICAL", "color": "RED", "style": "image/upload/v1639746424/custom-mask-style/fftiwdkbkxkdb1p9utzy.png", "price": 15.0, "quantity": 100, "order": 3}}, {"model": "cuztomize_masker_page.custommask", "pk": 3, "fields": {"sex": "M", "size": "L", "model": "SPONGE", "color": "RED", "style": "image/upload/v1639882890/custom-mask-style/ea2sv3jejc7nw9vmyecl.png", "price": 15.0, "quantity": 100, "order": 3}}]'
+        datacustoms = '[{"model": "cuztomize_masker_page.custommask", "pk": 2, "fields": {"sex": "F", "size": "XL", "model": "SURGICAL", "color": "RED", "style": "image/upload/v1639746424/custom-mask-style/fftiwdkbkxkdb1p9utzy.png", "price": 15.0, "quantity": 100, "order": 3}}, {"model": "cuztomize_masker_page.custommask", "pk": 3, "fields": {"sex": "M", "size": "L", "model": "SPONGE", "color": "RED", "style": "image/upload/v1639882890/custom-mask-style/ea2sv3jejc7nw9vmyecl.png", "price": 15.0, "quantity": 100, "order": 3}}]'
         datacustoms = json.loads(datacustoms)
     # print(datacustoms)
     return JsonResponse(datacustoms, safe=False)
@@ -154,3 +169,16 @@ def getJson(request):
         jsonget["get_items_total"] = 0
     
     return JsonResponse(jsonget, safe=False)
+
+@csrf_exempt
+def addJson(request):
+    data = {}
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            product = ProdukMasker.objects.get(id=data['productId'])
+            order, created = Order.objects.get_or_create(user=request.user, complete=False)
+            orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+            orderItem.quantity = orderItem.quantity + 1
+            orderItem.save()
+    return JsonResponse(data)
