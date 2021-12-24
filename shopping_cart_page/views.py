@@ -151,7 +151,7 @@ def customJson(request):
     else:
         customs = []
         datacustoms = serializers.serialize('json', customs)
-        datacustoms = '[{"model": "cuztomize_masker_page.custommask", "pk": 2, "fields": {"sex": "F", "size": "XL", "model": "SURGICAL", "color": "RED", "style": "image/upload/v1639746424/custom-mask-style/fftiwdkbkxkdb1p9utzy.png", "price": 15.0, "quantity": 100, "order": 3}}, {"model": "cuztomize_masker_page.custommask", "pk": 3, "fields": {"sex": "M", "size": "L", "model": "SPONGE", "color": "RED", "style": "image/upload/v1639882890/custom-mask-style/ea2sv3jejc7nw9vmyecl.png", "price": 15.0, "quantity": 100, "order": 3}}]'
+        # datacustoms = '[{"model": "cuztomize_masker_page.custommask", "pk": 2, "fields": {"sex": "F", "size": "XL", "model": "SURGICAL", "color": "RED", "style": "image/upload/v1639746424/custom-mask-style/fftiwdkbkxkdb1p9utzy.png", "price": 15.0, "quantity": 100, "order": 3}}, {"model": "cuztomize_masker_page.custommask", "pk": 3, "fields": {"sex": "M", "size": "L", "model": "SPONGE", "color": "RED", "style": "image/upload/v1639882890/custom-mask-style/ea2sv3jejc7nw9vmyecl.png", "price": 15.0, "quantity": 100, "order": 3}}]'
         datacustoms = json.loads(datacustoms)
     # print(datacustoms)
     return JsonResponse(datacustoms, safe=False)
