@@ -7,5 +7,6 @@ urlpatterns = [
     path('checkout-3', views.checkout3_form),
     path('checkout-4', views.checkout4),
     path('calc2', views.AjaxCalcPrice2),
-    path('checkout-complete', views.checkout_complete)
+    path('checkout-complete', views.checkout_complete),
+    path('checkout_flutter', views.checkoutJson)
 ]
