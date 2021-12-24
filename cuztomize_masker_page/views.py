@@ -1,9 +1,11 @@
 from django.shortcuts import render
-
+import json
+from django.views.decorators.csrf import csrf_exempt
 from cuztomize_masker_page.forms import CustomForm
 from django.http.response import HttpResponseRedirect, JsonResponse
 from shopping_cart_page.models import *
 from cuztomize_masker_page.models import CustomMask 
+from django.forms.models import model_to_dict
 
 # Create your views here.
 def custom_mask(request):
@@ -43,3 +45,25 @@ def update_deskripsi(request):
         'CLOTH' : "Sering melihat masker-masker beredar yang berbahan kain? Produk ini sebetulnya didesain untuk membuat kita tetap hangat, bukan untuk menahan virus. Mirip dengan Sponge Mask, masker ini nggak mampu menahan virus dan debu. Tapi, mampu menahan bakteri maupun pollen sebanyak 50%. Masker ini sebetulnya masih boleh digunakan oleh kamu yang sehat tapi ada urusan di luar rumah. Tapi, jangan lupa untuk mencuci masker setiap kali setelah pemakaian, dan perhatikan cara melepasnya supaya bagian luar masker nggak terkena wajah kamu.",
     }
     return JsonResponse(data)
+
+@csrf_exempt
+def add_custom(request):
+    if request.method == 'POST':
+        # print(request.body)
+        data = json.loads(request.body)
+        # print(data)
+        sex = data["sex"]
+        size = data["size"]
+        model = data["model"]
+        color = data["color"]
+        style = data["style"]
+        custom = CustomMask.objects.get_or_create(sex = sex, size = size, model = model, color = color, style = style)
+   
+        dataorder = model_to_dict(custom)
+
+    else:
+        dataorder = {}
+       
+    
+    # print(dataorder)
+    return JsonResponse(dataorder, safe=False)
