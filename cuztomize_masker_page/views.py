@@ -6,6 +6,7 @@ from django.http.response import HttpResponseRedirect, JsonResponse
 from shopping_cart_page.models import *
 from cuztomize_masker_page.models import CustomMask 
 from django.forms.models import model_to_dict
+import cloudinary
 
 # Create your views here.
 def custom_mask(request):
@@ -36,7 +37,7 @@ def custom_mask(request):
             state = 'Please fill in all the required fields!'
     return render(request, "custom_page.html", {'form':form, 'state':state})
 
-
+@csrf_exempt
 def update_deskripsi(request):
     data = {
         'SURGICAL' : "Masker bedah atau bisa disebut sebagai masker medis yang biasanya berwarna hijau atau biru. Masker jenis ini mampu menahan droplet sekitar 80-90 persen. Masker ini hanya bisa digunakan satu kali pakai dalam waktu 4 jam pemakaian. Masker ini terutama wajib digunakan oleh pasien sakit dan petugas kesehatan yang tidak menangani pasien COVID-19 secara langsung. Petugas yang menangani pasien COVID-19 secara langsung wajib mengenakan masker N-95 dan APD level 3",
@@ -46,7 +47,7 @@ def update_deskripsi(request):
     }
     return JsonResponse(data)
 
-import cloudinary
+
 @csrf_exempt
 def add_custom(request):
     if request.method == 'POST':
@@ -61,7 +62,6 @@ def add_custom(request):
         style = cloudinary.uploader.upload(request.FILES['image'].file, folder="custom-mask-style")['public_id']
         custom = CustomMask.objects.get_or_create(sex = sex, size = size, model = model, color = color, style = style)
         dataorder = {}
-        # dataorder = model_to_dict(custom)
 
     else:
         dataorder = {}

@@ -9,4 +9,5 @@ urlpatterns = [
     path('product_json/', productJson, name="product_json"),
     path('custom_json/', customJson, name="custom_json"),
     path('get_json/', getJson, name="get_json"),
+    path('add_json/', addJson, name="add_json"),
 ]
