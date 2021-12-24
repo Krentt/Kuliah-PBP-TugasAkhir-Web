@@ -1,10 +1,12 @@
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, JsonResponse
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from .forms import RegisterForm
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 """
 Referensi : 
@@ -76,3 +78,45 @@ def logout_user(request):
 
 def home_page(request):
     return render(request, 'home_page/home.html')
+
+@csrf_exempt
+def register_flutter(request):
+    data = json.loads(request.body)
+    first_name = data['first_name']
+    last_name = data['last_name']
+    email = data['email']
+    username = data['username']
+    password = data['password']
+    confirm_pass = data['confirm_password']
+    print(username)
+    print(password)
+    print(confirm_pass)
+
+    if (password == confirm_pass):
+        try:
+        #Cek jika username atau email sudah terdaftar
+            user = User.objects.get(username=username)
+            print(user)
+            user_email = User.objects.get(email=email)
+            return JsonResponse({'status':'register gagal'})
+        except (User.DoesNotExist):
+        #Jika username atau email belum terdaftar
+            user = User.objects.create_user(
+            first_name=first_name, last_name=last_name, username=username, email=email, password=password)
+            return JsonResponse({'status':'register berhasil', 'username':username, 'password':password})
+
+@csrf_exempt
+def login_flutter(request):
+    data = json.loads(request.body)
+    print(request.method)
+    username = data['username']
+    password = data['password']
+    print(username)
+    print(password)
+
+    user = authenticate(username=username, password=password)
+    print(user)
+    if (user is not None):
+        return JsonResponse({'status':'logged in', 'username':username})
+    else:
+        return JsonResponse({'status':'failed'})
