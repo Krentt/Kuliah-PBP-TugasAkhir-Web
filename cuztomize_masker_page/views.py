@@ -36,7 +36,7 @@ def custom_mask(request):
             state = 'Please fill in all the required fields!'
     return render(request, "custom_page.html", {'form':form, 'state':state})
 
-
+@csrf_exempt
 def update_deskripsi(request):
     data = {
         'SURGICAL' : "Masker bedah atau bisa disebut sebagai masker medis yang biasanya berwarna hijau atau biru. Masker jenis ini mampu menahan droplet sekitar 80-90 persen. Masker ini hanya bisa digunakan satu kali pakai dalam waktu 4 jam pemakaian. Masker ini terutama wajib digunakan oleh pasien sakit dan petugas kesehatan yang tidak menangani pasien COVID-19 secara langsung. Petugas yang menangani pasien COVID-19 secara langsung wajib mengenakan masker N-95 dan APD level 3",
